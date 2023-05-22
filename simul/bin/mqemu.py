@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import argparse
+import csv
 import cycles as modcycles
 import logging
 import numpy
@@ -13,6 +14,7 @@ DFLT = {
     'cpi' : 1,
     'brt' : 2048,
     'iter' : 100,
+    'pfx'  : '',
     'qemu' : os.path.join(
         os.path.dirname(os.path.realpath(__file__)), 'qemu.sh')
 }
@@ -32,6 +34,8 @@ def arguments():
                         help='Constant for cycles per instruction')
     parser.add_argument('-b', '--brt', type=int, default=DFLT['brt'],
                         help='Constant for block reload time')
+    parser.add_argument('-f', '--pfx', type=str,
+                        default=DFLT['pfx'], help='Algorithm prefix')
     parser.add_argument('-i', '--iters', type=int, default=DFLT['iter'],
                         help='The number of iterations to execute the image')
     parser.add_argument('-q', '--qemu', type=str, default=DFLT['qemu'],
@@ -138,6 +142,24 @@ def main():
     print(f'Std Dev Cache Misses: {mstd:<5,.2f}')
     print(f'Max Single Sched    : {l:<12,.2f}')
     print(f'Std Dev Single Sched: {lstd:<12,.2f}')
+
+    pfx=args.pfx
+    if pfx:
+        pfx = f'{pfx}-'
+
+    csvpath = f'{pfx}data.csv'
+    header=[f'{pfx}Total.Cycles.Avg',
+            f'{pfx}Total.Cycles.SDev',
+            f'{pfx}Misses.Avg',
+            f'{pfx}Misses.SDev',
+            f'{pfx}Longest.Schd',
+            f'{pfx}Longest.SDev']
+
+    with open(csvpath, 'w') as csvfile:
+        write = csv.writer(csvfile)
+        write.writerow(header)
+        write.writerow([tc,tcstd,m,mstd,l,lstd])
+
 
 if __name__ == '__main__':
     exit(main())
