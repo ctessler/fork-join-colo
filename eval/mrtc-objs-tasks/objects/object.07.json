@@ -1,0 +1,7 @@
+{
+    "name": "lcdnum",
+    "wcet": {
+        "base": 58,
+        "incr": 1
+    }
+}

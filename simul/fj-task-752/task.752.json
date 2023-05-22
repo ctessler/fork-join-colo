@@ -1,0 +1,467 @@
+{
+    "name": "752",
+    "deadline": 1966,
+    "sections": [
+        [
+            {
+                "name": 0,
+                "threads": 1,
+                "object": "matmult"
+            },
+            {
+                "name": 1,
+                "threads": 1,
+                "object": "ns"
+            },
+            {
+                "name": 2,
+                "threads": 1,
+                "object": "simple"
+            },
+            {
+                "name": 3,
+                "threads": 1,
+                "object": "ud"
+            },
+            {
+                "name": 4,
+                "threads": 1,
+                "object": "simple"
+            },
+            {
+                "name": 5,
+                "threads": 1,
+                "object": "ns"
+            },
+            {
+                "name": 6,
+                "threads": 1,
+                "object": "ud"
+            },
+            {
+                "name": 7,
+                "threads": 1,
+                "object": "crc"
+            },
+            {
+                "name": 8,
+                "threads": 1,
+                "object": "lcdnum"
+            },
+            {
+                "name": 9,
+                "threads": 1,
+                "object": "minver"
+            },
+            {
+                "name": 10,
+                "threads": 1,
+                "object": "expint"
+            },
+            {
+                "name": 11,
+                "threads": 1,
+                "object": "ud"
+            },
+            {
+                "name": 12,
+                "threads": 1,
+                "object": "select"
+            },
+            {
+                "name": 13,
+                "threads": 1,
+                "object": "jfdctint"
+            },
+            {
+                "name": 14,
+                "threads": 1,
+                "object": "fft"
+            },
+            {
+                "name": 15,
+                "threads": 1,
+                "object": "expint"
+            },
+            {
+                "name": 16,
+                "threads": 1,
+                "object": "statemate"
+            },
+            {
+                "name": 17,
+                "threads": 1,
+                "object": "qurt"
+            },
+            {
+                "name": 18,
+                "threads": 1,
+                "object": "insertsort"
+            },
+            {
+                "name": 19,
+                "threads": 1,
+                "object": "matmult"
+            },
+            {
+                "name": 20,
+                "threads": 1,
+                "object": "qurt"
+            },
+            {
+                "name": 21,
+                "threads": 1,
+                "object": "qurt"
+            },
+            {
+                "name": 22,
+                "threads": 1,
+                "object": "insertsort"
+            },
+            {
+                "name": 23,
+                "threads": 1,
+                "object": "select"
+            },
+            {
+                "name": 24,
+                "threads": 1,
+                "object": "crc"
+            },
+            {
+                "name": 25,
+                "threads": 1,
+                "object": "ud"
+            },
+            {
+                "name": 26,
+                "threads": 1,
+                "object": "matmult"
+            },
+            {
+                "name": 27,
+                "threads": 1,
+                "object": "fft"
+            },
+            {
+                "name": 28,
+                "threads": 1,
+                "object": "minver"
+            },
+            {
+                "name": 29,
+                "threads": 1,
+                "object": "jfdctint"
+            },
+            {
+                "name": 30,
+                "threads": 1,
+                "object": "bs"
+            },
+            {
+                "name": 31,
+                "threads": 1,
+                "object": "crc"
+            },
+            {
+                "name": 32,
+                "threads": 1,
+                "object": "insertsort"
+            },
+            {
+                "name": 33,
+                "threads": 1,
+                "object": "ns"
+            },
+            {
+                "name": 34,
+                "threads": 1,
+                "object": "bsort100"
+            },
+            {
+                "name": 35,
+                "threads": 1,
+                "object": "insertsort"
+            },
+            {
+                "name": 36,
+                "threads": 1,
+                "object": "minver"
+            },
+            {
+                "name": 37,
+                "threads": 1,
+                "object": "select"
+            },
+            {
+                "name": 38,
+                "threads": 1,
+                "object": "jfdctint"
+            },
+            {
+                "name": 39,
+                "threads": 1,
+                "object": "select"
+            },
+            {
+                "name": 40,
+                "threads": 1,
+                "object": "statemate"
+            },
+            {
+                "name": 41,
+                "threads": 1,
+                "object": "statemate"
+            },
+            {
+                "name": 42,
+                "threads": 1,
+                "object": "crc"
+            },
+            {
+                "name": 43,
+                "threads": 1,
+                "object": "insertsort"
+            },
+            {
+                "name": 44,
+                "threads": 1,
+                "object": "insertsort"
+            },
+            {
+                "name": 45,
+                "threads": 1,
+                "object": "statemate"
+            },
+            {
+                "name": 46,
+                "threads": 1,
+                "object": "bs"
+            },
+            {
+                "name": 47,
+                "threads": 1,
+                "object": "bsort100"
+            },
+            {
+                "name": 48,
+                "threads": 1,
+                "object": "ns"
+            },
+            {
+                "name": 49,
+                "threads": 1,
+                "object": "statemate"
+            },
+            {
+                "name": 50,
+                "threads": 1,
+                "object": "matmult"
+            },
+            {
+                "name": 51,
+                "threads": 1,
+                "object": "jfdctint"
+            },
+            {
+                "name": 52,
+                "threads": 1,
+                "object": "qurt"
+            },
+            {
+                "name": 53,
+                "threads": 1,
+                "object": "simple"
+            },
+            {
+                "name": 54,
+                "threads": 1,
+                "object": "lcdnum"
+            },
+            {
+                "name": 55,
+                "threads": 1,
+                "object": "insertsort"
+            },
+            {
+                "name": 56,
+                "threads": 1,
+                "object": "minver"
+            },
+            {
+                "name": 57,
+                "threads": 1,
+                "object": "jfdctint"
+            },
+            {
+                "name": 58,
+                "threads": 1,
+                "object": "select"
+            },
+            {
+                "name": 59,
+                "threads": 1,
+                "object": "statemate"
+            },
+            {
+                "name": 60,
+                "threads": 1,
+                "object": "matmult"
+            }
+        ]
+    ],
+    "serial-nodes": [
+        {
+            "name": 61,
+            "threads": 1,
+            "object": "crc"
+        },
+        {
+            "name": 62,
+            "threads": 1,
+            "object": "insertsort"
+        }
+    ],
+    "objects": [
+        {
+            "name": "qurt",
+            "wcet": {
+                "base": 52,
+                "incr": 1
+            }
+        },
+        {
+            "name": "ud",
+            "wcet": {
+                "base": 135,
+                "incr": 6
+            }
+        },
+        {
+            "name": "minver",
+            "wcet": {
+                "base": 49,
+                "incr": 19
+            }
+        },
+        {
+            "name": "insertsort",
+            "wcet": {
+                "base": 72,
+                "incr": 2
+            }
+        },
+        {
+            "name": "statemate",
+            "wcet": {
+                "base": 264,
+                "incr": 2
+            }
+        },
+        {
+            "name": "ns",
+            "wcet": {
+                "base": 86,
+                "incr": 22
+            }
+        },
+        {
+            "name": "bs",
+            "wcet": {
+                "base": 68,
+                "incr": 1
+            }
+        },
+        {
+            "name": "jfdctint",
+            "wcet": {
+                "base": 172,
+                "incr": 5
+            }
+        },
+        {
+            "name": "simple",
+            "wcet": {
+                "base": 52,
+                "incr": 1
+            }
+        },
+        {
+            "name": "select",
+            "wcet": {
+                "base": 52,
+                "incr": 1
+            }
+        },
+        {
+            "name": "expint",
+            "wcet": {
+                "base": 78,
+                "incr": 4
+            }
+        },
+        {
+            "name": "fft",
+            "wcet": {
+                "base": 52,
+                "incr": 1
+            }
+        },
+        {
+            "name": "crc",
+            "wcet": {
+                "base": 199,
+                "incr": 102
+            }
+        },
+        {
+            "name": "nsichneu",
+            "wcet": {
+                "base": 1891,
+                "incr": 1324
+            }
+        },
+        {
+            "name": "bsort100",
+            "wcet": {
+                "base": 343,
+                "incr": 271
+            }
+        },
+        {
+            "name": "sqrt",
+            "wcet": {
+                "base": 49,
+                "incr": 1
+            }
+        },
+        {
+            "name": "lcdnum",
+            "wcet": {
+                "base": 58,
+                "incr": 1
+            }
+        },
+        {
+            "name": "matmult",
+            "wcet": {
+                "base": 483,
+                "incr": 401
+            }
+        }
+    ],
+    "results": {
+        "2-Gram-Cores": 7,
+        "2-Gram-WCET": 1804,
+        "2-Gram-Seconds": 0.0041220299899578094,
+        "2-Gram-Terminated": false,
+        "3-Parm-Cores": 3,
+        "3-Parm-WCET": 1957,
+        "3-Parm-Seconds": 0.002168360981158912,
+        "3-Parm-Terminated": false,
+        "3-Parm-HD-Cores": 3,
+        "3-Parm-HD-WCET": 1957,
+        "3-Parm-HD-Seconds": 0.005919283954426646,
+        "3-Parm-HD-Terminated": false
+    }
+}

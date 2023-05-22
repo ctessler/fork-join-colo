@@ -1,0 +1,16 @@
+		 Fork-Join Representative Object Base
+
+* Schedule
+
+| core | fj    | p                                                                            | fj    |
+|    0 | cntrl | cntrl                                                                        | cntrl |
+|    1 | fft   | fft[1] statemate[3] select[3] ud[4] insertsort[5] ns[3] minver[2] matmult[3] | sqrt  |
+|    2 | -     | matmult[2] bsort100[2] jfdctint[4] lcdnum[1] sqrt[2] crc[1] qurt[2]          | -     |
+|    3 | -     | simple[2] nsichneu[1]                                                        | -     |
+|    4 | -     |                                                                              |       |
+|    5 | -     |                                                                              | -     |
+|    6 | -     |                                                                              | -     |
+|    7 | -     |                                                                              | -     |
+
+Cores 3   <= 7
+WCET 2226 < 2920

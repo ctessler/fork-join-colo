@@ -1,0 +1,25 @@
+		       MRTC Benchmarks Group 1
+
+Running the image will run a fork-join task that produces
+representative base and incremental values. The cores instruction and
+miss counts represent the following
+
+    core 1 : minver(1) // broken by double assignment
+    core 2 : minver(2) // broken by double assignment
+    core 3 : ns(1)
+    core 4 : ns(2)
+    core 5 : nsichneu(1)
+    core 6 : nsichneu(2)
+
+From cache.log   
+    
+core #, ... insn accesses, insn misses, imiss rate
+0       ... 2583           21              0.8130%
+1       ... 676            24              3.5503% // broken
+2       ... 724            24              3.3149% // broken
+3       ... 23036          31              0.1346% ns(1)
+4       ... 45420          31              0.0683% ns(2)
+5       ... 8939           919            10.2808% nsichneu(1)
+6       ... 17226          1564            9.0793% nsichneu(2)
+7       ... 576            18              3.1250%
+sum     ... 99180          2632            2.6538%

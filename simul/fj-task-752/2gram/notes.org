@@ -1,0 +1,52 @@
+		 Fork-Join Representative Object Base
+
+* Object Mapping
+
+| benchmark  | object   |
+| bs         | object01 |
+| bsort100   | object02 |
+| crc        | object03 |
+| expint     | object04 |
+| fft        | object05 |
+| insertsort | object06 |
+| jfdctint   | object07 |
+| lcdnum     | object08 |
+| matmult    | object09 |
+| minver     | object10 |
+| ns         | object11 |
+| nsichneu   | object12 |
+| qurt       | object13 |
+| select     | object14 |
+| simple     | object15 |
+| sqrt       | object16 |
+| statemate  | object17 |
+| ud         | object18 |
+
+		 
+* Benchmark Schedule
+
+| core | fj    | p                                                                               | fj         |
+|    0 | cntrl | cntrl                                                                           | cntrl      |
+|    1 | crc   | matmult crc select fft statemate qurt insertsort bsort100                       | insertsort |
+|    2 | -     | matmult crc select fft statemate insertsort insertsort                          | -          |
+|    3 | -     | matmult crc jfdctint statemate insertsort bsort100                              | -          |
+|    4 | -     | matmult crc jfdctint statemate insertsort                                       | -          |
+|    5 | -     | matmult lcdnum minver minver select jfdctint statemate insertsort               | -          |
+|    6 | -     | ns ns simple simple ud ud minver expint select jfdctint statemate bs            | -          |
+|    7 | -     | ns ns simple ud ud lcdnum minver expint select jfdctint qurt qurt insertsort bs | -          |
+
+
+* Object Schedule
+
+| core | fj    | p                                      | fj    |
+|    0 | cntrl | cntrl                                  | cntrl |
+|    1 | 03    | 09 03 14 05 17 13 06 02                | 06    |
+|    2 | -     | 09 03 14 05 17 06 06                   | -     |
+|    3 | -     | 09 03 07 17 06 02                      | -     |
+|    4 | -     | 09 03 07 17 06                         | -     |
+|    5 | -     | 09 08 10 10 14 07 17 06                | -     |
+|    6 | -     | 11 11 15 15 18 18 10 04 14 07 17 01    | -     |
+|    7 | -     | 11 11 15 18 18 08 10 04 14 07 13 13 01 | -     |
+
+Cores 7   = 7
+WCET 1804 < 1966

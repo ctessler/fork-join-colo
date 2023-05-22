@@ -1,0 +1,26 @@
+		       MRTC Benchmarks Group 1
+
+Running the image will run a fork-join task that produces
+representative base and incremental values. The cores instruction and
+miss counts represent the following
+
+    core 1 : expint(1)
+    core 2 : expint(2)
+    core 3 : fft(1) // broken by division
+    core 4 : fft(2) // broken by division
+    core 5 : insertsort(1)
+    core 6 : insertsort(2)
+
+From cache.log   
+    
+core #, ... insn accesses, insn misses, imiss rate
+0       ... 2481           21              0.8464%
+1       ... 4137           36              0.8702% expint(1)
+2       ... 7622           36              0.4723% expint(2)
+3       ... 676            25              3.6982% broken
+4       ... 724            25              3.4530% broken
+5       ... 2970           34              1.1448% insertsort(1)
+6       ... 5288           34              0.6430% insertsort(1)
+7       ... 561            18              3.2086%
+sum     ... 24459          229             0.9363%
+    

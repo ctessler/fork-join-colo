@@ -1,0 +1,131 @@
+{
+    "name": "094",
+    "deadline": 2076,
+    "sections": [
+        [
+            {
+                "name": 0,
+                "threads": 1,
+                "object": "obj5x8"
+            },
+            {
+                "name": 1,
+                "threads": 1,
+                "object": "obj1x5"
+            },
+            {
+                "name": 2,
+                "threads": 1,
+                "object": "obj5x5"
+            },
+            {
+                "name": 3,
+                "threads": 1,
+                "object": "obj5x3"
+            },
+            {
+                "name": 4,
+                "threads": 1,
+                "object": "obj1x8"
+            },
+            {
+                "name": 5,
+                "threads": 1,
+                "object": "obj1x5"
+            },
+            {
+                "name": 6,
+                "threads": 1,
+                "object": "obj1x8"
+            },
+            {
+                "name": 7,
+                "threads": 1,
+                "object": "obj5x5"
+            },
+            {
+                "name": 8,
+                "threads": 1,
+                "object": "obj5x3"
+            }
+        ]
+    ],
+    "serial-nodes": [
+        {
+            "name": 9,
+            "threads": 1,
+            "object": "obj5x3"
+        },
+        {
+            "name": 10,
+            "threads": 1,
+            "object": "obj5x5"
+        }
+    ],
+    "objects": [
+        {
+            "name": "obj2x8",
+            "wcet": {
+                "base": 2000,
+                "incr": 1600
+            }
+        },
+        {
+            "name": "obj5x5",
+            "wcet": {
+                "base": 500,
+                "incr": 250
+            }
+        },
+        {
+            "name": "obj1x5",
+            "wcet": {
+                "base": 1000,
+                "incr": 500
+            }
+        },
+        {
+            "name": "obj5x8",
+            "wcet": {
+                "base": 500,
+                "incr": 400
+            }
+        },
+        {
+            "name": "obj1x8",
+            "wcet": {
+                "base": 1000,
+                "incr": 800
+            }
+        },
+        {
+            "name": "obj5x3",
+            "wcet": {
+                "base": 500,
+                "incr": 150
+            }
+        }
+    ],
+    "results": {
+        "2-Gram-Cores": 7,
+        "2-Gram-WCET": 2500,
+        "2-Gram-Seconds": 0.002951178001239896,
+        "2-Gram-Terminated": false,
+        "3-Parm-Cores": 7,
+        "3-Parm-WCET": 2750,
+        "3-Parm-Seconds": 0.0035691329976543784,
+        "3-Parm-Terminated": false,
+        "3-Parm-HD-Cores": 7,
+        "3-Parm-HD-WCET": 2000,
+        "3-Parm-HD-Seconds": 0.005733985017286614,
+        "3-Parm-HD-Terminated": false,
+        "ExactNoColo-Cores": 7,
+        "ExactNoColo-WCET": 2000,
+        "ExactNoColo-Seconds": 11.10782964300597,
+        "ExactNoColo-Terminated": false,
+        "ExactColo-Cores": 7,
+        "ExactColo-WCET": 2000,
+        "ExactColo-Seconds": 12.151732029014966,
+        "ExactColo-Terminated": false
+    }
+}

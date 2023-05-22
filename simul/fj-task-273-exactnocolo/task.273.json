@@ -1,0 +1,187 @@
+{
+    "name": "273",
+    "deadline": 4297,
+    "sections": [
+        [
+            {
+                "name": 0,
+                "threads": 1,
+                "object": "obj1x5"
+            },
+            {
+                "name": 1,
+                "threads": 1,
+                "object": "obj5x5"
+            },
+            {
+                "name": 2,
+                "threads": 1,
+                "object": "obj1x8"
+            },
+            {
+                "name": 3,
+                "threads": 1,
+                "object": "obj5x8"
+            },
+            {
+                "name": 4,
+                "threads": 1,
+                "object": "obj1x8"
+            },
+            {
+                "name": 5,
+                "threads": 1,
+                "object": "obj5x3"
+            },
+            {
+                "name": 6,
+                "threads": 1,
+                "object": "obj5x3"
+            },
+            {
+                "name": 7,
+                "threads": 1,
+                "object": "obj5x3"
+            },
+            {
+                "name": 8,
+                "threads": 1,
+                "object": "obj1x8"
+            },
+            {
+                "name": 9,
+                "threads": 1,
+                "object": "obj5x3"
+            },
+            {
+                "name": 10,
+                "threads": 1,
+                "object": "obj1x5"
+            },
+            {
+                "name": 11,
+                "threads": 1,
+                "object": "obj5x3"
+            },
+            {
+                "name": 12,
+                "threads": 1,
+                "object": "obj5x5"
+            },
+            {
+                "name": 13,
+                "threads": 1,
+                "object": "obj5x8"
+            },
+            {
+                "name": 14,
+                "threads": 1,
+                "object": "obj5x8"
+            },
+            {
+                "name": 15,
+                "threads": 1,
+                "object": "obj1x8"
+            },
+            {
+                "name": 16,
+                "threads": 1,
+                "object": "obj1x8"
+            },
+            {
+                "name": 17,
+                "threads": 1,
+                "object": "obj1x5"
+            },
+            {
+                "name": 18,
+                "threads": 1,
+                "object": "obj1x5"
+            },
+            {
+                "name": 19,
+                "threads": 1,
+                "object": "obj1x8"
+            },
+            {
+                "name": 20,
+                "threads": 1,
+                "object": "obj2x8"
+            }
+        ]
+    ],
+    "serial-nodes": [
+        {
+            "name": 21,
+            "threads": 1,
+            "object": "obj5x8"
+        },
+        {
+            "name": 22,
+            "threads": 1,
+            "object": "obj5x3"
+        }
+    ],
+    "objects": [
+        {
+            "name": "obj5x3",
+            "wcet": {
+                "base": 500,
+                "incr": 150
+            }
+        },
+        {
+            "name": "obj2x8",
+            "wcet": {
+                "base": 2000,
+                "incr": 1600
+            }
+        },
+        {
+            "name": "obj5x5",
+            "wcet": {
+                "base": 500,
+                "incr": 250
+            }
+        },
+        {
+            "name": "obj1x8",
+            "wcet": {
+                "base": 1000,
+                "incr": 800
+            }
+        },
+        {
+            "name": "obj5x8",
+            "wcet": {
+                "base": 500,
+                "incr": 400
+            }
+        },
+        {
+            "name": "obj1x5",
+            "wcet": {
+                "base": 1000,
+                "incr": 500
+            }
+        }
+    ],
+    "results": {
+        "2-Gram-Cores": 7,
+        "2-Gram-WCET": 5000,
+        "2-Gram-Seconds": 0.004282247013179585,
+        "2-Gram-Terminated": false,
+        "3-Parm-Cores": 6,
+        "3-Parm-WCET": 3950,
+        "3-Parm-Seconds": 0.0031404729816131294,
+        "3-Parm-Terminated": false,
+        "3-Parm-HD-Cores": 5,
+        "3-Parm-HD-WCET": 3950,
+        "3-Parm-HD-Seconds": 0.005292356014251709,
+        "3-Parm-HD-Terminated": false,
+        "ExactNoColo-Cores": 7,
+        "ExactNoColo-WCET": null,
+        "ExactNoColo-Seconds": 447.0912173590041,
+        "ExactNoColo-Terminated": true
+    }
+}

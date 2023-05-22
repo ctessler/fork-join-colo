@@ -1,0 +1,38 @@
+		 Fork-Join Representative Object Base
+
+* Schedule
+
+| core | fj    | p                                                       | fj    |
+|    0 | cntrl | cntrl                                                   | cntrl |
+|    1 | fft   | fft ud insertsort insertsort matmult sqrt simple        | sqrt  |
+|    2 | -     | statemate minver matmult jfdctint                       | -     |
+|    3 | -     | statemate minver matmult lcdnum crc                     | -     |
+|    4 | -     | statemate matmult jfdctint                              | -     |
+|    5 | -     | select ud insertsort ns matmult sqrt simple             | -     |
+|    6 | -     | select ud insertsort ns bsort100 jfdctint qurt nsichneu | -     |
+|    7 | -     | select ud insertsort ns bsort100 jfdctint qurt          | -     |
+
+
+| Group | Bencmarks  |    | Cores | Ported | 
+|     1 | bs         |  1 | 1,2   | Y      | 
+|       | bsort100   |  2 | 3,4   | Y      | 
+|       | crc        |  3 | 5,6   | Y      | 
+|     2 | expint     |  4 | 1,2   | Y      | 
+|       | fft        |  5 | 3,4   | Y      | 
+|       | insertsort |  6 | 5,6   | Y      | 
+|     3 | jfdctint   |  7 | 1,2   | Y      | 
+|       | lcdnum     |  8 | 3,4   | Y      | 
+|       | matmult    |  9 | 5,6   | Y      | 
+|     4 | minver     | 10 | 1,2   | Y      | 
+|       | ns         | 11 | 3,4   | Y      | 
+|       | nsichneu   | 12 | 5,6   | Y      | 
+|     5 | qurt       | 13 | 1,2   | Y      | 
+|       | select     | 14 | 3,4   | Y      | 
+|       | simple     | 15 | 5,6   | Y      | 
+|     6 | sqrt       | 16 | 1,2   | Y      | 
+|       | statemate  | 17 | 3,4   | Y      | 
+|       | ud         | 18 | 5,6   | Y      | 
+
+
+Cores 7   = 7
+WCET 2939 > 2920

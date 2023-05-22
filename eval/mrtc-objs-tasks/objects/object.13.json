@@ -1,0 +1,7 @@
+{
+    "name": "select",
+    "wcet": {
+        "base": 120,
+        "incr": 1
+    }
+}

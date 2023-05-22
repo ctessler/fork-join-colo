@@ -1,0 +1,36 @@
+		 Fork-Join Representative Object Base
+
+* Representative Object Distribution
+| Bases     | Incrs    | Names                |
+| 50,000    | .3,.5,.8 | obj5a3,obj5a5,obj5a8 |
+| 500,000   | .3,.5,.8 | obj5x3,obj5x5,obj5x8 |
+| 1,000,000 | .5,.8    | obj1x5,obj1x8        |
+| 2,000,000 | .8       | obj2x8               |
+
+* Representative Object to Function Mapping
+
+| Function | Rep Obj  | Notes    |
+| obj5a3   | object01 | Not Used |
+| obj5a5   | object02 | Not Used |
+| obj5a8   | object03 | Not Used |
+| obj5x3   | object04 |          |
+| obj5x5   | object05 |          |
+| obj5x8   | object06 |          |
+| obj1x5   | object07 |          |
+| obj1x8   | object08 |          |
+| obj2x8   | object09 |          |
+
+* Schedule
+
+| core | fj     | p                           | fj     |
+|    0 | cntrl  | cntrl                       | cntrl  |
+|    1 | obj5x3 | obj1x5 obj1x5               | obj5x8 |
+|    2 | -      | obj5x5 obj5x8 obj5x8 obj5x8 | -      |
+|    3 | -      | obj5x3 obj5x3 obj1x8        | -      |
+|    4 | -      |                             | -      |
+|    5 | -      | -                           | -      |
+|    6 | -      | -                           | -      |
+|    7 | -      | -                           | -      |
+
+CORES 3        < 7
+WCET 3,000,000 < DEADLINE 3,050,000
