@@ -17,7 +17,7 @@ data.csv: $(subs)
 	tail -n1 3-Parm-HD/data.csv >> data.csv
 
 graphs: data.csv
-	mkdir graphs
+	mkdir -p graphs
 	../bin/poc-graph.py data.csv
 	rename mrtc $(task) *.png *.eps
 	mv *.png *.eps graphs/.
