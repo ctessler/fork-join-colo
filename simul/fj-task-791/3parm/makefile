@@ -14,7 +14,7 @@ OBJECTS=$(patsubst src/%.c,${OBJDIR}/%.o, $(wildcard src/*.c))
 ASMOBJS=$(patsubst asm/%.s,${OBJDIR}/%.o, $(wildcard asm/*.s))
 
 
-all: riscv32-img cache.log $(ALG)-data.csv
+all: riscv32-img cache.log data.csv
 
 $(OBJECTS): ${OBJDIR}/%.o : src/%.c | ${OBJDIR}
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -31,7 +31,7 @@ riscv32-img: $(OBJECTS) $(ASMOBJS)
 cache.log: riscv32-img
 	../../bin/qemu.sh riscv32-img
 
-$(ALG)-data.csv: riscv32-img
+data.csv: riscv32-img
 	../../bin/mqemu.py -f $(ALG) -v -i 100 riscv32-img
 
 clean:

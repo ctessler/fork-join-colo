@@ -144,21 +144,20 @@ def main():
     print(f'Std Dev Single Sched: {lstd:<12,.2f}')
 
     pfx=args.pfx
-    if pfx:
-        pfx = f'{pfx}-'
 
-    csvpath = f'{pfx}data.csv'
-    header=[f'{pfx}Total.Cycles.Avg',
-            f'{pfx}Total.Cycles.SDev',
-            f'{pfx}Misses.Avg',
-            f'{pfx}Misses.SDev',
-            f'{pfx}Longest.Schd',
-            f'{pfx}Longest.SDev']
+    csvpath='data.csv'
+    header=[f'Alg.',
+            f'Total.Cycles.Avg',
+            f'Total.Cycles.SDev',
+            f'Misses.Avg',
+            f'Misses.SDev',
+            f'Longest.Schd',
+            f'Longest.SDev']
 
     with open(csvpath, 'w') as csvfile:
         write = csv.writer(csvfile)
         write.writerow(header)
-        write.writerow([tc,tcstd,m,mstd,l,lstd])
+        write.writerow([pfx,tc,tcstd,m,mstd,l,lstd])
 
 
 if __name__ == '__main__':
