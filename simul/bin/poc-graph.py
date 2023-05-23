@@ -62,7 +62,101 @@ def modstart(csvfile):
         task = json.load(fp, cls=colo.ForkJoinTaskDecoder)
     composite(df, task, 'mrtc-composite.png')
     composite(df, task, 'mrtc-composite.eps')
+
+
+    pcc(df, task, 'mrtc-per-core-composite.png')
     return
+
+def pcc(dataf, task, filename):
+    # Organize the data
+    algs = dataf['Alg.']
+    max1k=r'${max_1}$'
+    mspank=r'${\Lambda}$'
+    subd = {
+        mspank : []
+    }
+    for i in range(1,8):
+        subd[f'max_{i}'] = []
+
+    fillc = [
+        '#d9d9d6',
+        '#80adad'
+    ]
+    toppers = [
+        [], #max1k go here
+        []  #mspank go here
+    ]
+
+    labels = []
+    ymax = dataf['Longest.Schd'].max()
+    for alg in algs:
+        # Task data
+        # Multiply because the synthetic tasks are scaled by 10^3
+        mspan = task.get_result(alg + '-WCET') * 1000
+        cores = task.get_result(alg + '-Cores')
+        if mspan > (task.deadline * 1000):
+            cores = '> ' + f'{cores}'
+        subd[mspank].append(mspan)
+        labels.append(gp.get_label(alg) + '\nCores ' + r'${' + str(cores) + r'}$')
+
+        # Execution data (max1, makespan, cores)
+        for i in range(7,0,-1):
+            key = f'Core.{i}.Longest'
+            length = dataf[dataf['Alg.'] == alg][key].iloc[0]
+            subd[f'max_{i}'].append(length)
+
+
+    ymax = max(subd[mspank])
+    ymax *= 1.2
+
+    # Plot the data
+    x = numpy.arange(len(labels))
+    barw = 1 / 10.0
+    m = 0
+    fig, ax = plt.subplots(layout='constrained')
+    for attr, val in subd.items():
+        off = barw * m
+        if attr == mspank:
+            color = fillc[0]
+        else:
+            color = fillc[1]
+        rects = ax.bar(x + off, val, barw, label=attr, color=color, edgecolor='black')
+        if attr != mspank:
+            for idx, r in enumerate(rects):
+                plt.text(r.get_x() + r.get_width() * .35,
+                         r.get_y() + r.get_height() + ymax * .02,
+                         f'{m}',
+                         fontsize=gp.axis_fontsize())
+        # This puts the cores and cycles at the tops of the bars
+        # but it's more confusing
+        # for r in rects:
+        #     top = toppers[m].pop(0)
+        #     plt.text(r.get_x() + .05 * r.get_width(), r.get_y() + r.get_height() * 1.05, top,
+        #              fontsize=gp.axis_fontsize(), rotation=40)
+        m += 1
+
+
+    ax.tick_params(labelsize=gp.axis_fontsize())
+    ax.set_xticks(x + 3 * barw, labels, fontsize=gp.axis_fontsize())
+    ax.set_ylim(0, ymax)
+    plt.ylabel('Cycles', fontsize=gp.axis_fontsize())
+
+    # Plot the deadline
+    plt.axhline(y=task.deadline * 1000, label='Deadline', linestyle='--')
+
+    ax.legend(loc='upper right', ncols=2, fontsize=gp.axis_fontsize())
+    handles, labels = plt.gca().get_legend_handles_labels()
+    order = [1, 0, 2]
+    for i, l in enumerate(labels):
+        if l == 'max_1':
+            labels[i] = r'${max_m}$'
+    plt.legend([handles[idx] for idx in order],[labels[idx] for idx in order],
+               ncols=2, fontsize=gp.axis_fontsize())
+
+    plt.savefig(filename, bbox_inches='tight', pad_inches=0.3)
+    plt.close()
+
+
 
 def composite(dataf, task, filename):
     # Organize the data

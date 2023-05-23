@@ -20,14 +20,17 @@ sel=(
 	fj-task-791/graphs/fj-task-791-mean-misses.eps
 	fj-task-791/graphs/fj-task-791-max1-cycles.eps
 	fj-task-791/graphs/fj-task-791-composite.eps
+	fj-task-791/graphs/fj-task-791-per-core-composite.eps
 	fj-task-484/graphs/fj-task-484-max1-cycles.eps
 	fj-task-484/graphs/fj-task-484-mean-cycles.eps
 	fj-task-484/graphs/fj-task-484-mean-misses.eps
 	fj-task-484/graphs/fj-task-484-composite.eps
+	fj-task-484/graphs/fj-task-484-per-core-composite.eps
 	fj-task-956/graphs/fj-task-956-mean-cycles.eps
 	fj-task-956/graphs/fj-task-956-mean-misses.eps
 	fj-task-956/graphs/fj-task-956-max1-cycles.eps
 	fj-task-956/graphs/fj-task-956-composite.eps
+	fj-task-956/graphs/fj-task-956-per-core-composite.eps
     )
 
 ODIR=${1}

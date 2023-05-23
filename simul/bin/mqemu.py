@@ -77,6 +77,7 @@ def modstart(image, qemu, cpi, brt, iters, interactive=False):
     cycles = []
     longs = []
     misses = []
+    longest = []
 
     for i in range(iters):
         logging.debug(f'{i+1:>3}: Running ... ')
@@ -90,6 +91,9 @@ def modstart(image, qemu, cpi, brt, iters, interactive=False):
             if s.casefold() == 'n':
                 logging.debug('Rejected!')
                 continue
+        if len(longest) == 0:
+            ncores = len(ires)
+            longest = [0] * (ncores - 1)
 
         sub_cycles = 0
         sub_longs = 0
@@ -101,6 +105,8 @@ def modstart(image, qemu, cpi, brt, iters, interactive=False):
             sub_cycles += data['cycles']
             if data['cycles'] > sub_longs:
                 sub_longs = data['cycles']
+            if data['cycles'] > longest[key - 1]:
+                longest[key - 1] = data['cycles']
             sub_misses += data['misses']
 
         cycles.append(sub_cycles)
@@ -114,7 +120,8 @@ def modstart(image, qemu, cpi, brt, iters, interactive=False):
     result = {
         'cycles'  : [numpy.mean(cycles), numpy.std(cycles)],
         'longest' : [numpy.max(longs), numpy.std(longs)],
-        'misses'  : [numpy.mean(misses), numpy.std(misses)]
+        'misses'  : [numpy.mean(misses), numpy.std(misses)],
+        'longest_all': longest
     }
 
     return result
@@ -142,6 +149,9 @@ def main():
     print(f'Std Dev Cache Misses: {mstd:<5,.2f}')
     print(f'Max Single Sched    : {l:<12,.2f}')
     print(f'Std Dev Single Sched: {lstd:<12,.2f}')
+    a = res['longest_all']
+    for idx in range(len(a)):
+        print(f'  Core{idx + 1} Longest: {a[idx]:<12,.2f}')
 
     pfx=args.pfx
 
@@ -153,11 +163,15 @@ def main():
             f'Misses.SDev',
             f'Longest.Schd',
             f'Longest.SDev']
+    for idx in range(len(a)):
+        header += [f'Core.{idx + 1}.Longest']
 
     with open(csvpath, 'w') as csvfile:
         write = csv.writer(csvfile)
         write.writerow(header)
-        write.writerow([pfx,tc,tcstd,m,mstd,l,lstd])
+        data = [pfx,tc,tcstd,m,mstd,l,lstd]
+        data += a
+        write.writerow(data)
 
 
 if __name__ == '__main__':
