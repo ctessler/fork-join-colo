@@ -65,6 +65,7 @@ def modstart(csvfile):
 
 
     pcc(df, task, 'mrtc-per-core-composite.png')
+    pcc(df, task, 'mrtc-per-core-composite.eps')
     return
 
 def pcc(dataf, task, filename):
@@ -79,14 +80,11 @@ def pcc(dataf, task, filename):
         subd[f'max_{i}'] = []
 
     fillc = [
-        '#d9d9d6',
-        '#80adad'
+        '#4281a4',
+        '#9cafb7',
+        '#ead2ac',
+        '#fe938c',
     ]
-    toppers = [
-        [], #max1k go here
-        []  #mspank go here
-    ]
-
     labels = []
     ymax = dataf['Longest.Schd'].max()
     for alg in algs:
@@ -105,8 +103,8 @@ def pcc(dataf, task, filename):
             length = dataf[dataf['Alg.'] == alg][key].iloc[0]
             subd[f'max_{i}'].append(length)
 
-
-    ymax = max(subd[mspank])
+    ymax = max(task.deadline * 1000, dataf['Longest.Schd'].max(), ymax)
+    ymax = max([ymax, *subd[mspank]])
     ymax *= 1.2
 
     # Plot the data
