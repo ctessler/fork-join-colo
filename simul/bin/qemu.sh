@@ -1,5 +1,7 @@
-QEMU=${QEMU:-/home/ct/ws/riscv-fs/qemu/qemu.git/build/qemu-system-riscv32}
-PLUGIN=${PLUGIN:-/home/ct/ws/riscv-fs/qemu/qemu.git/build/contrib/plugins/libcache.so}
+_QEMU=$(command -v qemu-system-riscv32)
+_PLUGIN=$(dirname $(dirname ${_QEMU}))/contrib/plugins/libcache.so
+QEMU=${QEMU:-${_QEMU}}
+PLUGIN=${PLUGIN:-${_PLUGIN}}
 
 opts=-nographic 	# disable the graphical output
 opts+=" -machine virt"	# the RISC-V simulated machine
