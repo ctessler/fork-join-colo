@@ -2,7 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import argparse
+import colo
 import colo.GraphParms as gp
+import glob
+import json
 import logging
 import matplotlib.pyplot as plt
 import pandas
@@ -53,7 +56,92 @@ def modstart(csvfile):
 
     max1_cycles(df, 'mrtc-max1-cycles.png')
     max1_cycles(df, 'mrtc-max1-cycles.eps')
+
+    fname = glob.glob('*.json')[0]
+    with open(fname, 'r') as fp:
+        task = json.load(fp, cls=colo.ForkJoinTaskDecoder)
+    composite(df, task, 'mrtc-composite.png')
+    composite(df, task, 'mrtc-composite.eps')
     return
+
+def composite(dataf, task, filename):
+    # Organize the data
+    algs = dataf['Alg.']
+    max1k=r'${max_1}$'
+    mspank=r'${\Lambda}$'
+    subd = {
+        max1k : [],
+        mspank : []
+    }
+    fillc = [
+        '#d9d9d6',
+        '#80adad'
+    ]
+    toppers = [
+        [], #max1k go here
+        []  #mspank go here
+    ]
+
+    labels = []
+    ymax = dataf['Longest.Schd'].max()
+    for alg in algs:
+        # Get the data (max1, makespan, cores)
+        max1 = dataf[dataf['Alg.'] == alg]['Longest.Schd'].iloc[0]
+        mspan = task.get_result(alg + '-WCET')
+        cores = task.get_result(alg + '-Cores')
+        if mspan > task.deadline:
+            cores = '> ' + f'{cores}'
+        # Multiply because the synthetic tasks are scaled by 10^3
+        mspan *= 1000
+        ymax = max(ymax, mspan)
+        subd[max1k].append(max1)
+        toppers[0].append(max1)
+        subd[mspank].append(mspan)
+        toppers[1].append('Cores ' + r'${' + str(cores) + r'}$')
+        labels.append(gp.get_label(alg) + '\nCores ' + r'${' + str(cores) + r'}$')
+    ymax = max(ymax, task.deadline * 1000)
+    ymax *= 1.2
+
+    # Plot the data
+    x = numpy.arange(len(labels))
+    barw = 0.3
+    m = 0
+    fig, ax = plt.subplots(layout='constrained')
+    for attr, val in subd.items():
+        off = barw * m
+        rects = ax.bar(x + off, val, barw, label=attr, color=fillc[m], edgecolor='black')
+        # This puts the cores and cycles at the tops of the bars
+        # but it's more confusing
+        # for r in rects:
+        #     top = toppers[m].pop(0)
+        #     plt.text(r.get_x() + .05 * r.get_width(), r.get_y() + r.get_height() * 1.05, top,
+        #              fontsize=gp.axis_fontsize(), rotation=40)
+        m += 1
+
+
+
+
+    ax.tick_params(labelsize=gp.axis_fontsize())
+    ax.set_xticks(x + barw, labels, fontsize=gp.axis_fontsize())
+    ax.set_ylim(0, ymax)
+    plt.ylabel('Cycles', fontsize=gp.axis_fontsize())
+
+    # Plot the deadline
+    plt.axhline(y=task.deadline * 1000, label='Deadline', linestyle='--')
+
+    ax.legend(loc='upper right', ncols=2, fontsize=gp.axis_fontsize())
+
+    handles, labels = plt.gca().get_legend_handles_labels()
+    order = [1, 0, 2]
+    plt.legend([handles[idx] for idx in order],[labels[idx] for idx in order],
+               ncols=2, fontsize=gp.axis_fontsize())
+
+    plt.savefig(filename, bbox_inches='tight', pad_inches=0.3)
+    plt.close()
+
+
+
+
 
 def max1_cycles(dataf, filename):
     #
@@ -74,7 +162,7 @@ def max1_cycles(dataf, filename):
         labels.append(gp.get_label(alg))
         colors.append(gp.get_color(alg))
 
-    bars = plt.bar(labels, dataf['Longest.Schd'], color=colors)
+    bars = plt.bar(labels, dataf['Longest.Schd'], color=colors, edgecolor='black')
     for bar, stdev in zip(bars, stdevs):
         y = bar.get_height()
         plt.text(bar.get_x(), y + 5000, stdev)
@@ -105,7 +193,7 @@ def mean_misses(dataf, filename):
         labels.append(gp.get_label(alg))
         colors.append(gp.get_color(alg))
 
-    bars = plt.bar(labels, dataf['Misses.Avg'], color=colors)
+    bars = plt.bar(labels, dataf['Misses.Avg'], color=colors, edgecolor='black')
     for bar, stdev in zip(bars, stdevs):
         y = bar.get_height()
         plt.text(bar.get_x(), y + 10, stdev)
@@ -137,7 +225,7 @@ def mean_cycles(dataf, filename):
         labels.append(gp.get_label(alg))
         colors.append(gp.get_color(alg))
 
-    bars = plt.bar(labels, dataf['Total.Cycles.Avg'], color=colors)
+    bars = plt.bar(labels, dataf['Total.Cycles.Avg'], color=colors, edgecolor='black')
     for bar, stdev in zip(bars, stdevs):
         y = bar.get_height()
         plt.text(bar.get_x(), y + 50000, stdev)

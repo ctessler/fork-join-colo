@@ -19,16 +19,19 @@ sel=(
 	fj-task-791/graphs/fj-task-791-mean-cycles.eps
 	fj-task-791/graphs/fj-task-791-mean-misses.eps
 	fj-task-791/graphs/fj-task-791-max1-cycles.eps
+	fj-task-791/graphs/fj-task-791-composite.eps
 	fj-task-484/graphs/fj-task-484-max1-cycles.eps
 	fj-task-484/graphs/fj-task-484-mean-cycles.eps
 	fj-task-484/graphs/fj-task-484-mean-misses.eps
+	fj-task-484/graphs/fj-task-484-composite.eps
 	fj-task-956/graphs/fj-task-956-mean-cycles.eps
 	fj-task-956/graphs/fj-task-956-mean-misses.eps
 	fj-task-956/graphs/fj-task-956-max1-cycles.eps
+	fj-task-956/graphs/fj-task-956-composite.eps
     )
 
 ODIR=${1}
-DDIR=${2:-../../oleaf/}
+DDIR=${2:-../../oleaf.git/}
 
 if [ "${ODIR}" == "" ] ; then
 	echo "An output directory must be supplied"
@@ -36,7 +39,7 @@ if [ "${ODIR}" == "" ] ; then
 	exit -1
 fi
 
-ODIR=${ODIR}/graphs
+ODIR=${ODIR}/
 
 for file in ${sel[@]} ; do
 	path=${ODIR}/${file}
@@ -46,7 +49,7 @@ for file in ${sel[@]} ; do
 done
 
 if [ ! -d ${DDIR} ] ; then
-	echo "A document root is required"
+	echo "A document root is required [$DDIR]"
 	usage
 	exit -1
 fi
@@ -57,7 +60,9 @@ mkdir -p ${DDIR}
 
 for file in ${sel[@]} ; do
 	src=${ODIR}/${file}
-	dst=${DDIR}/${file}
+	dst=${DDIR}/
+	dst+=$(basename $file)
+
 
 	echo "${src} -> ${dst}"
 	cp ${src} ${dst}
