@@ -15,13 +15,13 @@ EOF
 }
 
 # selection of graphs
-sel=( avg-reuse-by-set.png
-      pctsched-count-by-set.png
+sel=( avg-reuse-by-set.eps
+      pctsched-count-by-set.eps
     )
       
 
 ODIR=${1}
-DDIR=${2:-../}
+DDIR=${2:-../../oleaf.git/}
 
 if [ "${ODIR}" == "" ] ; then
 	echo "An output directory must be supplied"

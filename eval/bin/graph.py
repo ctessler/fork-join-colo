@@ -781,7 +781,13 @@ def core_comp_helper_cdf(frame, algs, core_range, path):
         for core in core_range:
             sched = frame.loc[frame[key] == core]
             subtotal += len(sched.index)
-            counts.append(100 * subtotal / total_tasks)
+            if total_tasks != 0:
+                counts.append(100 * subtotal / total_tasks)
+            else:
+                counts.append(0)
+            if total_tasks == 0 and subtotal != 0:
+                logging.error(f'Zero total tasks, but subtotal:{subtotal} is non-zero')
+            
         plt.plot(core_range, counts, label=alg,
                  color=gp.get_color(alg),
                  linestyle=gp.get_line(alg),

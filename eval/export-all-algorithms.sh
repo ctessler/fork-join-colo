@@ -15,16 +15,16 @@ EOF
 }
 
 # selection of graphs
-sel=( cache-reuse.png
-      ae-core-allocation-agg.png
-      all-timing-growth.png
-      schedulability-cache-reuse-pct-all.png
-      sched-by-count-all.png
-      sched-by-count-cdf-all.png
+sel=( cache-reuse.eps
+      ae-core-allocation-agg.eps
+      all-timing-growth.eps
+      schedulability-cache-reuse-pct-all.eps
+      sched-by-count-all.eps
+      sched-by-count-cdf-all.eps
     )
 
 ODIR=${1}
-DDIR=${2:-../}
+DDIR=${2:-../../oleaf.git/}
 
 if [ "${ODIR}" == "" ] ; then
 	echo "An output directory must be supplied"
