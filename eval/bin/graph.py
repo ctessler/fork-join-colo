@@ -146,6 +146,8 @@ def ae_core_allocation(graph_dir, df, num_tasks, core_range):
     plt.xlabel('Number of Required Cores', fontsize=gp.axis_fontsize())
     plt.legend(loc='best')
     path = os.path.normpath(graph_dir + '/ae-core-allocation.png')
+    plt.savefig(path, bbox_inches='tight')    
+    path = os.path.normpath(graph_dir + '/ae-core-allocation.eps')    
     plt.savefig(path, bbox_inches='tight')
     plt.close()
 
@@ -177,7 +179,9 @@ def ae_core_allocation(graph_dir, df, num_tasks, core_range):
                fontsize=gp.axis_fontsize())
     plt.xlabel('Number of Required Cores',
                fontsize=gp.axis_fontsize())
-    path = os.path.normpath(graph_dir + '/ae-core-allocation-agg.png')    
+    path = os.path.normpath(graph_dir + '/ae-core-allocation-agg.png')
+    plt.savefig(path, bbox_inches='tight')
+    path = os.path.normpath(graph_dir + '/ae-core-allocation-agg.eps')        
     plt.savefig(path, bbox_inches='tight')
     plt.close()
 
@@ -201,6 +205,8 @@ def dag_core_allocation(graph_dir, df, num_tasks, core_range):
     plt.xlabel('Number of Required Cores', fontsize=gp.axis_fontsize())
     plt.legend(loc='best')
     path = os.path.normpath(graph_dir + '/dag-core-allocation.png')
+    plt.savefig(path, bbox_inches='tight')    
+    path = os.path.normpath(graph_dir + '/dag-core-allocation.eps')
     plt.savefig(path, bbox_inches='tight')
     plt.close()
 
@@ -230,7 +236,9 @@ def dag_core_allocation(graph_dir, df, num_tasks, core_range):
         xticks = range(0, core_range[-1] + 1, math.floor(core_range[-1] / 10))
     plt.ylabel('Percentage of Tasks Schedulable', fontsize=gp.axis_fontsize())
     plt.xlabel('Number of Required Cores', fontsize=gp.axis_fontsize())
-    path = os.path.normpath(graph_dir + '/dag-core-allocation-agg.png')    
+    path = os.path.normpath(graph_dir + '/dag-core-allocation-agg.png')
+    plt.savefig(path, bbox_inches='tight')    
+    path = os.path.normpath(graph_dir + '/dag-core-allocation-agg.eps')        
     plt.savefig(path, bbox_inches='tight')
     plt.close()
 
@@ -260,6 +268,8 @@ def schedulability(graph_dir, df, num_tasks, core_range):
     plt.xticks(rotation=45)
     plt.tight_layout()
     path = os.path.normpath(graph_dir + '/schedulability.png')
+    plt.savefig(path, bbox_inches='tight')    
+    path = os.path.normpath(graph_dir + '/schedulability.eps')    
     plt.savefig(path, bbox_inches='tight')
     plt.close()
 
@@ -283,8 +293,12 @@ def timing_exact(graph_dir, df, num_tasks, core_range):
     plt.xlabel('Method', fontsize=gp.axis_fontsize())
     path = os.path.normpath(graph_dir + '/timing-exact-nomax.png')
     plt.savefig(path, bbox_inches='tight')
+    path = os.path.normpath(graph_dir + '/timing-exact-nomax.eps')    
+    plt.savefig(path, bbox_inches='tight')
     plt.ylim([0, ymax])
     path = os.path.normpath(graph_dir + '/timing-exact-limited.png')
+    plt.savefig(path, bbox_inches='tight')
+    path = os.path.normpath(graph_dir + '/timing-exact-limited.eps')
     plt.savefig(path, bbox_inches='tight')    
     plt.close()
     
@@ -299,6 +313,8 @@ def timing_dag(graph_dir, df, num_tasks, core_range):
     plt.boxplot(dag, labels=dag_labels)
     plt.ylabel('Completion Time in Seconds', fontsize=gp.axis_fontsize())
     path = os.path.normpath(graph_dir + '/timing-dag.png')
+    plt.savefig(path, bbox_inches='tight')
+    path = os.path.normpath(graph_dir + '/timing-dag.eps')    
     plt.savefig(path, bbox_inches='tight')
     plt.close()
     
@@ -322,13 +338,14 @@ def timing(graph_dir, df, num_tasks, core_range):
                fontsize=gp.axis_fontsize())
     path = os.path.normpath(graph_dir + '/timing-approx.png')
     plt.savefig(path, bbox_inches='tight')
+    path = os.path.normpath(graph_dir + '/timing-approx.eps')    
+    plt.savefig(path, bbox_inches='tight')
     plt.close()
 
     return
 
 
 def timing_growth(graph_dir, df, numb_tasks, core_range):
-    path = os.path.normpath(graph_dir + '/all-timing-growth.png')
     algs = gp.algs_approx() + gp.algs_dag()
     if do_exact(df):
         algs = algs + gp.algs_exact()
@@ -352,10 +369,12 @@ def timing_growth(graph_dir, df, numb_tasks, core_range):
     plt.legend(loc='best')
     plt.xlabel('Threads per Task', fontsize=gp.axis_fontsize())
     plt.ylabel('Average Completion Time', fontsize=gp.axis_fontsize())
+    path = os.path.normpath(graph_dir + '/all-timing-growth.png')
+    plt.savefig(path, bbox_inches='tight')
+    path = os.path.normpath(graph_dir + '/all-timing-growth.eps')
     plt.savefig(path, bbox_inches='tight')
     plt.close()
 
-    path = os.path.normpath(graph_dir + '/ae-timing-growth.png')
     for pfx in gp.algs_approx() + gp.algs_dag():
         plt.plot(data[pfx], label=gp.get_label(pfx),
                  linestyle=gp.get_line(pfx),
@@ -367,11 +386,13 @@ def timing_growth(graph_dir, df, numb_tasks, core_range):
     plt.legend(loc='best')
     plt.xlabel('Threads per Task', fontsize=gp.axis_fontsize())
     plt.ylabel('Average Completion Time', fontsize=gp.axis_fontsize())
+    path = os.path.normpath(graph_dir + '/ae-timing-growth.png')
+    plt.savefig(path, bbox_inches='tight')
+    path = os.path.normpath(graph_dir + '/ae-timing-growth.eps')    
     plt.savefig(path, bbox_inches='tight')
     plt.close()
 
 def timing_with_confidence(graph_dir, df):
-    path = os.path.normpath(graph_dir + '/timing-confidence.png')
 
     algs = gp.algs_approx() + gp.algs_dag()
     if do_exact(df):
@@ -404,8 +425,12 @@ def timing_with_confidence(graph_dir, df):
     plt.legend(loc='best')
     plt.xlabel('Threads per Task', fontsize=gp.axis_fontsize())
     plt.ylabel('Average Completion Time', fontsize=gp.axis_fontsize())
+    path = os.path.normpath(graph_dir + '/timing-confidence.png')
     plt.savefig(path, bbox_inches='tight')
     logging.info(f'Writing {path}')
+    path = os.path.normpath(graph_dir + '/timing-confidence.png')
+    plt.savefig(path, bbox_inches='tight')
+    logging.info(f'Writing {path}')    
     plt.close()
     
 
@@ -424,6 +449,8 @@ def cache_reuse(graph_dir, df, num_tasks, core_range):
     plt.xlabel(f'Cache Reuse Factor Interval', fontsize=gp.axis_fontsize())
     plt.ylabel(f'Number of Tasks', fontsize=gp.axis_fontsize())
     path = os.path.normpath(graph_dir + '/cache-reuse.png')
+    plt.savefig(path, bbox_inches='tight')
+    path = os.path.normpath(graph_dir + '/cache-reuse.eps')
     plt.savefig(path, bbox_inches='tight')
     plt.close()
 
@@ -446,32 +473,35 @@ def cache_reuse(graph_dir, df, num_tasks, core_range):
     plt.ylabel('Percentage of All Tasks', fontsize=gp.axis_fontsize())
     path = os.path.normpath(graph_dir + '/cache-reuse-agg.png')    
     plt.savefig(path, bbox_inches='tight')
+    path = os.path.normpath(graph_dir + '/cache-reuse-agg.eps')    
+    plt.savefig(path, bbox_inches='tight')
     plt.close()
 
-    ca_sched(graph_dir, df, num_tasks, core_range, gp.algs_ordered(),
-             'schedulability-cache-reuse-agg-all.png')
-    ca_sched(graph_dir, df, num_tasks, core_range, gp.algs_approx(),
-             'schedulability-cache-reuse-agg-approx.png')
-    ca_sched(graph_dir, df, num_tasks, core_range, gp.algs_exact(),
-             'schedulability-cache-reuse-agg-exact.png')
-    ca_sched(graph_dir, df, num_tasks, core_range, gp.algs_dag(),
-             'schedulability-cache-reuse-agg-dag.png')
-    ca_pct(graph_dir, df, num_tasks, core_range, gp.algs_ordered(),
-             'schedulability-cache-reuse-pct-all.png')
-    ca_pct(graph_dir, df, num_tasks, core_range, gp.algs_approx(),
-             'schedulability-cache-reuse-pct-approx.png')
-    ca_pct(graph_dir, df, num_tasks, core_range, gp.algs_exact(),
-             'schedulability-cache-reuse-pct-exact.png')
-    ca_pct(graph_dir, df, num_tasks, core_range, gp.algs_dag(),
-             'schedulability-cache-reuse-pct-dag.png')
-    ca_count(graph_dir, df, num_tasks, core_range, gp.algs_ordered(),
-             'schedulability-cache-reuse-count-all.png')
-    ca_count(graph_dir, df, num_tasks, core_range, gp.algs_approx(),
-             'schedulability-cache-reuse-count-approx.png')
-    ca_count(graph_dir, df, num_tasks, core_range, gp.algs_exact(),
-             'schedulability-cache-reuse-count-exact.png')
-    ca_count(graph_dir, df, num_tasks, core_range, gp.algs_dag(),
-             'schedulability-cache-reuse-count-dag.png')
+    for e in ['png', 'eps']:
+        ca_sched(graph_dir, df, num_tasks, core_range, gp.algs_ordered(),
+                 f'schedulability-cache-reuse-agg-all.{e}')
+        ca_sched(graph_dir, df, num_tasks, core_range, gp.algs_approx(),
+                 f'schedulability-cache-reuse-agg-approx.{e}')
+        ca_sched(graph_dir, df, num_tasks, core_range, gp.algs_exact(),
+                 f'schedulability-cache-reuse-agg-exact.{e}')
+        ca_sched(graph_dir, df, num_tasks, core_range, gp.algs_dag(),
+                 f'schedulability-cache-reuse-agg-dag.{e}')
+        ca_pct(graph_dir, df, num_tasks, core_range, gp.algs_ordered(),
+                 f'schedulability-cache-reuse-pct-all.{e}')
+        ca_pct(graph_dir, df, num_tasks, core_range, gp.algs_approx(),
+                 f'schedulability-cache-reuse-pct-approx.{e}')
+        ca_pct(graph_dir, df, num_tasks, core_range, gp.algs_exact(),
+                 f'schedulability-cache-reuse-pct-exact.{e}')
+        ca_pct(graph_dir, df, num_tasks, core_range, gp.algs_dag(),
+                 f'schedulability-cache-reuse-pct-dag.{e}')
+        ca_count(graph_dir, df, num_tasks, core_range, gp.algs_ordered(),
+                 f'schedulability-cache-reuse-count-all.{e}')
+        ca_count(graph_dir, df, num_tasks, core_range, gp.algs_approx(),
+                 f'schedulability-cache-reuse-count-approx.{e}')
+        ca_count(graph_dir, df, num_tasks, core_range, gp.algs_exact(),
+                 f'schedulability-cache-reuse-count-exact.{e}')
+        ca_count(graph_dir, df, num_tasks, core_range, gp.algs_dag(),
+                 f'schedulability-cache-reuse-count-dag.{e}')
 
 def ca_sched(graph_dir, df, num_tasks, core_range, subset, png):
     sf = df[gp.task_key_reuse()].value_counts(bins=10, sort=False)
@@ -651,27 +681,27 @@ def core_comp(graph_dir, df, num_tasks, core_range):
         key = gp.key_sched(a)
         aprsched = aprsched.loc[aprsched[key] == True]
 
-    core_comp_helper(aprsched, approx + exact, core_range,
-        os.path.normpath(graph_dir + '/sched-by-count-approx.png'))
-    core_comp_helper(dagsched, dag + exact, core_range,
-        os.path.normpath(graph_dir + '/sched-by-count-dag.png'))
-    core_comp_helper(allsched, allalgs, core_range,
-        os.path.normpath(graph_dir + '/sched-by-count-all.png'))
-    core_comp_hist(aprsched, approx + exact, core_range,
-        os.path.normpath(graph_dir + '/hist-sched-by-count-approx.png'))
-    core_comp_hist(dagsched, dag + exact, core_range,
-        os.path.normpath(graph_dir + '/hist-sched-by-count-dag.png'))
-    core_comp_hist(allsched, allalgs, core_range,
-        os.path.normpath(graph_dir + '/hist-sched-by-count-all.png'))
-    core_comp_hist_pair(allsched, approx + exact, dag + exact, core_range,
-        os.path.normpath(graph_dir + '/hist-sched-by-count-sbs.png'))
-
-    core_comp_helper_cdf(aprsched, approx + exact, core_range,
-        os.path.normpath(graph_dir + '/sched-by-count-cdf-approx.png'))
-    core_comp_helper_cdf(dagsched, dag + exact, core_range,
-        os.path.normpath(graph_dir + '/sched-by-count-cdf-dag.png'))
-    core_comp_helper_cdf(allsched, allalgs, core_range,
-        os.path.normpath(graph_dir + '/sched-by-count-cdf-all.png'))
+    for e in ['png', 'eps']:
+        core_comp_helper(aprsched, approx + exact, core_range,
+            os.path.normpath(graph_dir + f'/sched-by-count-approx.{e}'))
+        core_comp_helper(dagsched, dag + exact, core_range,
+            os.path.normpath(graph_dir + f'/sched-by-count-dag.{e}'))
+        core_comp_helper(allsched, allalgs, core_range,
+            os.path.normpath(graph_dir + f'/sched-by-count-all.{e}'))
+        core_comp_hist(aprsched, approx + exact, core_range,
+            os.path.normpath(graph_dir + f'/hist-sched-by-count-approx.{e}'))
+        core_comp_hist(dagsched, dag + exact, core_range,
+            os.path.normpath(graph_dir + f'/hist-sched-by-count-dag.{e}'))
+        core_comp_hist(allsched, allalgs, core_range,
+            os.path.normpath(graph_dir + f'/hist-sched-by-count-all.{e}'))
+        core_comp_hist_pair(allsched, approx + exact, dag + exact, core_range,
+            os.path.normpath(graph_dir + f'/hist-sched-by-count-sbs.{e}'))
+        core_comp_helper_cdf(aprsched, approx + exact, core_range,
+            os.path.normpath(graph_dir + f'/sched-by-count-cdf-approx.{e}'))
+        core_comp_helper_cdf(dagsched, dag + exact, core_range,
+            os.path.normpath(graph_dir + f'/sched-by-count-cdf-dag.{e}'))
+        core_comp_helper_cdf(allsched, allalgs, core_range,
+            os.path.normpath(graph_dir + f'/sched-by-count-cdf-all.{e}'))
 
 def core_comp_helper(frame, algs, core_range, path):
     fig = plt.figure()
