@@ -16,10 +16,8 @@ EOF
 
 # selection of graphs
 sel=(
-	fjtasks/task-484/graphs/task-484-per-core-composite.eps
-	fjtasks/task-791/graphs/task-791-per-core-composite.eps
-	fjtasks/task-956/graphs/task-956-per-core-composite.eps
-	mrtc-base-incr.tex
+	all-tiny/graphs/sched-by-count-cdf-all.eps
+	all-tiny/graphs/schedulability-cache-reuse-count-all.eps
     )
 
 ODIR=${1}
@@ -55,7 +53,7 @@ mkdir -p ${DDIR}
 
 for file in ${sel[@]} ; do
 	src=$2
-	src+="/simul/"
+	src+="/eval/"
 	src+=$file
 	dst=${DDIR}/
 	dst+=$(basename $file)

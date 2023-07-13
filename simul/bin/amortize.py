@@ -15,23 +15,25 @@ import numpy as np
 import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
+import logging
 
 DFLT = {
     'cpi' : 1,
     'brt' : 2048,
     'group': 6,
-    'iter': 10,
+    'iter': 100,
 }
 
 def arguments():
     '''
     Parses the arguments from the command line
-
+    
     returns an argparse.ArgumentParser.parse_args() object
     '''
     fclass = argparse.ArgumentDefaultsHelpFormatter
     parser = argparse.ArgumentParser(formatter_class=fclass)
-
+    parser.add_argument('-v', '--verbose', action='count', default=0,
+                        help='Increase the logging level')
     parser.add_argument('-c', '--cpi', type=int, default=DFLT['cpi'],
                         help='Constant for cycles per instruction')
     parser.add_argument('-b', '--brt', type=int, default=DFLT['brt'],
@@ -43,6 +45,20 @@ def arguments():
     parsed = parser.parse_args()
     return parsed
 
+def init_logging(verbosity):
+    '''
+    Initializes the logging module
+    '''
+    level = verbosity * -10 + logging.INFO
+    logargs = {
+        'format'  : "%(asctime)s [%(levelname)s] > %(message)s",
+        'datefmt' : "%H:%M:%S",
+        'level'   : level
+    }
+
+    logging.basicConfig(**logargs)
+    logging.debug(f'Debug logging enable')
+
 
 def main():
     '''
@@ -51,6 +67,7 @@ def main():
     ASSUMES the fork-join task structure of the fj-g* sample directories.
     '''
     args = arguments()
+    init_logging(args.verbose)
 
     if(args.iter < 1):
         print("Error iterations must be greater than 1.")
@@ -99,17 +116,19 @@ def main():
 
         # Obtain fg-x/risv32-img directory
         os.chdir("..")
-        os.chdir(wd + '/' + "fj-g" + str(j+1))
+        os.chdir(wd + '/fjtasks/fjgroups/' + "fj-g" + str(j+1))
         risv32_img_path = os.getcwd() + '/riscv32-img'
-
+        somestr = "fj-g" + str(j+1)
         # Run fg-x X iterations
         for i in range(args.iter):
 
             # Run QEMU and Generate Cache Log
-            qemu_run = run(['sh', qemu_path, risv32_img_path])
-            if qemu_run.returncode != 0:
-                print("Could not qemu.sh, please check your directory.")
-                exit()
+            #qemu_run = run(['sh', qemu_path, risv32_img_path])
+            logging.debug(f'{i+1:>3}: Running ... ' + somestr)
+            subprocess.call(['sh', qemu_path, risv32_img_path], stdout=subprocess.DEVNULL,
+                        stderr=subprocess.STDOUT)
+            logging.debug(f'{i+1:>3}: Done! ')
+
             # Obtain Bicosts
             objectCosts = bicosts.modstart('cache.log', args.cpi, args.brt)
 
@@ -142,10 +161,10 @@ def main():
             #Benchmarks| Base | Base Std.| Inc | Inc Std.
             groupRow.append(bench_names[j][x])
 
-            # Rounded to 4 Decimal Points, Change As Desired
+            # Rounded to 6 Decimal Points, Change As Desired
             groupRow.append(np.around(np.mean(baseArray[:,x]), 6))
             groupRow.append(np.around(np.std(baseArray[:,x]), 6))
-            groupRow.append(np.around(np.mean(incrArray[:,x]), 6))
+            groupRow.append(np.around(np.mean(incrArray[:,x]),6))
             groupRow.append(np.around(np.std(incrArray[:,x]), 6))
 
             groupData.append(groupRow)
