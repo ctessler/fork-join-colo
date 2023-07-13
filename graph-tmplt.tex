@@ -1,0 +1,53 @@
+\documentclass[a4paper]{article}
+\usepackage{pgffor}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage{geometry}
+\usepackage{caption}
+\usepackage{subcaption}
+\geometry{left=10mm, right=10mm}
+\title{Evaluation Results}
+\setcounter{table}{1}
+\setcounter{figure}{5}
+\setcounter{subfigure}{1}
+%%
+%% Macro for processing files in a directory. Taken from:
+%% https://tex.stackexchange.com/questions/7653/how-to-iterate-through-the-name-of-files-in-a-folder
+%% schedulability-cache-reuse-count-all.eps,
+
+\newcommand*{\figurelist}{%
+	sched-by-count-cdf-all.eps,
+	schedulability-cache-reuse-count-all.eps
+}%
+
+\newcommand*{\otherlist}{%
+  task-791-per-core-composite.eps,
+  task-956-per-core-composite.eps,
+  task-484-per-core-composite.eps
+}%
+\begin{document}
+
+\begin{multicols}{2}
+  \foreach \file in \figurelist {
+    \IfFileExists{\file}{
+      \begin{figure}[H]
+        \center
+        \includegraphics[width=\linewidth]{\file}
+      \end{figure}%
+    }{}
+  } % end foreach
+\end{multicols}
+
+\begin{figure}[H]
+  \foreach \file in \otherlist {
+    \IfFileExists{\file}{
+      \begin{subfigure}[b]{0.3\textwidth}
+        \center
+        \includegraphics[width=\linewidth]{\file}
+      \end{subfigure}%
+    }{}
+  } % end foreach
+\end{figure}%
+
+\end{document}

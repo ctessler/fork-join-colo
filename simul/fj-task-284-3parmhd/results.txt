@@ -1,2 +1,0 @@
-Total Cycles[sdev.] Longest Sched[sdev.] Cache Misses[sdev.]
-    6.04E+06[1.4e+01]     1.98E+06[6.4  ]     1.56E+03[0.0  ]
