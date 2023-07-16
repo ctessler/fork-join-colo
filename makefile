@@ -20,7 +20,7 @@ artifacts.pdf:
 	./simul/export.sh artifacts $(shell pwd)
 	./eval/export.sh artifacts $(shell pwd)
 	cp graph-tmplt.tex ./graphs/graph.tex
-	sed -i -e '30 e cat ./graphs/mrtc-base-incr.tex' ./graphs/graph.tex
+	sed -i -e '57 e cat ./graphs/mrtc-base-incr.tex' ./graphs/graph.tex
 	cd ./graphs && latexmk -pdf graph.tex && latexmk -c
 	mv ./graphs/graph.pdf artifacts.pdf
 

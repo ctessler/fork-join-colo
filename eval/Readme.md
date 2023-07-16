@@ -4,7 +4,7 @@ This folder provides the sources and scripts to reproduce the results and data f
 
 ## Folder Contents
 - `README.md` - the Markdown source of this file that explains how to use. 
-- `bin` - contains all of the scripts that runs an approximation algorithm. 
+- `bin` - contains all of the scripts that runs an exact or approximation algorithm. 
 - `ctxs` - contains .json contexts for use by other scripts.  
 - `mrtc-objs-tasks` - contains all of the MRTC object and tasks used for running the algorithms. 
 - `python-libs` - contains necessary python libraries used by several python scripts.  
