@@ -5,27 +5,21 @@ This folder provides the sources and scripts to reproduce the results and data f
 ## Folder Contents
 - `README.md` - the Markdown source of this file that explains how to use. 
 - `bin` - contains all of the scripts that runs an exact or approximation algorithm. 
-- `ctxs` - contains .json contexts for use by other scripts.  
-- `mrtc-objs-tasks` - contains all of the MRTC object and tasks used for running the algorithms. 
 - `python-libs` - contains necessary python libraries used by several python scripts.  
-- `tmplt` - contains templates for generating pdf files using LaTeX 
-- `export.sh` - exports select graphs to a certain directory.
-- `export-all-algorithms` - exports all algorithms to a certain directory.
-- `export-approx-algorithms` - exports all approx algorithms to a certain directory.
-- `export-scaled-sets` - exports all scaled-set to a certain directory.
-- `gen.mk` - used my the parent directory to automatically run and generate a all-tiny.json.
+- `export.sh` - exports the graphs used in publication.
+- `gen.mk` - used by the parent directory to automatically run and generate a select approximation algorithm.
 - `go.sh` - script for quickly generating an evaluation context.
 - `makefile` - makefile used to generate graphs after an evaluation context is ran.
 
 ## Step 1 - Environment Prerequisites 
 The following instructions have been tested on the Linux distribution **Ubuntu 22.04 LTS**. Several scripts rely on appropriate path varibles. The ``Path``
-variable needs to be updated to include the fjcolo/eval/bin/ folder. This can be updated with:
+variable needs to be updated to include the fjcolo/eval/bin/ folder. Assuming the installation base directory is ${HOME}/fjcolo , updating the PATH variable can be done by:
 ```
-export PATH=$PATH:/xxx/xxx/xxx/fjcolo/eval/bin
+export PATH=${PATH}:${HOME}/fjcolo/eval/bin
 ```
 Similar to the ``Path`` variable the ``PYTHONPATH`` variable will also need to be updated to include the python-libs folder in the directory. This can be updated with: 
 ```
-export PYTHONPATH=$PYTHONPATH:/xxx/xxx/xxx/fjcolo/eval/python-libs
+export PYTHONPATH=${PYTHONPATH}:${HOME}/fjcolo/eval/python-libs
 ```
 
 ## Step 2 - Software dependencies
@@ -169,5 +163,14 @@ go.sh script or the individual algorithms:
   $ ./opt-task-no-colo.py -M 8 all-tiny/task/task.008.json
   # Maximum of 8 cores
 ```
-#
+# Relevant Contexts 
+
+To generate a set of contexts that associate with the context sets in the work
+specific arguments can be passed into go.sh . The full script commands can be found
+in the table below:
+
+| Context Name | Graph Name | Command | 
+| - | - | - |
+| sete | Figure 7: Core Comparison for E | go.sh -M 5 -U 100 ctxs/all-m5.json group-e | 
+| setx | Figure 8: Core Comparison for X | go.sh -M 64 -U 500 -X ctxs/approx-m64-u500.json group-x | 
 
