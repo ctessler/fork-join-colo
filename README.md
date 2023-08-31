@@ -62,7 +62,7 @@ username: fjcolo
 password: password
 ~~~
 
-![loggedout.png](loggedout.png)
+![loggedout.png](markdown_images/loggedout.png)
 
 After logging in, the desktop environment will spawn a terminal with a brief set of instructions:
 
@@ -119,7 +119,7 @@ The table below includes a list of all results produced, and where they can be f
 
 Additionally, the resulting figures and tables are available as a single PDF named `result-summary.pdf`. The single pdf can be found within the `/home/user/fjcolo/verify` directory. An example of this pdf is found below: 
 
-![verify_screen.png](verify_screen.png)
+![verify_screen.png](markdown_images/verify_screen.png)
 
 
 # Section 3 - Quick Reproduction
@@ -159,7 +159,7 @@ The table below includes a list of all results produced, and where they can be f
 
 Additionally, the resulting figures and tables are available as a single PDF named `result-summary.pdf`. The single pdf can be found within the `/home/user/fjcolo/quick` directory. An example of this pdf is found below: 
 
-![quick_screen.png](quick_screen.png)
+![quick_screen.png](markdown_images/quick_screen.png)
 
 
 <br> 
@@ -201,4 +201,4 @@ The table below includes a list of all results produced, and where they can be f
 
 Additionally, the resulting figures and tables are available as a single PDF named `result-summary.pdf`. The single pdf can be found within the `/home/user/fjcolo/all` directory. An example of this pdf is found below: 
 
-![allscreen.png](all_screen.png)
+![allscreen.png](markdown_images/all_screen.png)
