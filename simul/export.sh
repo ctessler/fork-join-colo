@@ -24,6 +24,18 @@ sel=(
 
 ODIR=${1}
 DDIR=${2:-../../oleaf.git/}
+evaldir=$3
+
+if [ "$3" == "quick" ] 
+then
+	sel+=(
+		prev-mrtc-base-incr.tex
+	)
+else
+	sel+=(
+		mrtc-base-incr.tex
+	)
+fi
 
 if [ "${ODIR}" == "" ] ; then
 	echo "An output directory must be supplied"
@@ -46,10 +58,10 @@ if [ ! -d ${DDIR} ] ; then
 	usage
 	exit -1
 fi
-echo ${DDIR} exists
 
-DDIR=${DDIR}/graphs/
-echo $DDIR
+DDIR=${DDIR}/${evaldir}/
+echo ${DDIR} exists
+echo $3
 mkdir -p ${DDIR}
 
 
@@ -60,7 +72,9 @@ for file in ${sel[@]} ; do
 	dst=${DDIR}/
 	dst+=$(basename $file)
 
-
-	echo "${src} -> ${dst}"
-	cp ${src} ${dst}
+	if [ -e ${src} ]
+	then
+		echo "${src} -> ${dst}"
+		cp ${src} ${dst}
+	fi
 done
