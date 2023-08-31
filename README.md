@@ -66,7 +66,7 @@ password: password
 
 After logging in, the desktop environment will spawn a terminal with a brief set of instructions:
 
-![bash.png](bash.png)
+![bash.png](markdown_images/bash.png)
 
 The default terminal will be in the `/home/user/fjcolo` directory. In addition to this, the terminal will include quick start instructions with several `make` targets for reproduction. 
 
