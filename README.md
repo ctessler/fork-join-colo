@@ -33,12 +33,12 @@ Upon downloading, the correctness of the image may be validated by verifying its
 The checksum can be verified on a Linux system with: 
 ```
 $ md5sum fjcolo.ova 
-69d2c8ceacc4ba3d3a1797ed69bcfcaf  fjcolo.ova
+aca586a7a7a24e83c2a1102b257dab87  fjcolo.ova
 ```
 
 | MD5 Checksum| File   |
 | ----------- | ----------- |
-|69d2c8ceacc4ba3d3a1797ed69bcfcaf | fjcolo.ova |
+|aca586a7a7a24e83c2a1102b257dab87 | fjcolo.ova |
 
 The provided virtual machine image was created using VirtualBox and is the recommended virtualization platform for its use. VirtualBox is available for download from:
 
