@@ -76,7 +76,7 @@ work; given the random nature of task creation the results may not exactly match
 Those interested in reproducing the results from the evaluation repository or modifying the methodology may clone the repository from:
 
 ```
-https://github.com/ctessler/fork-join-colo/releases/tag/v2.0
+https://github.com/ctessler/fork-join-colo/releases/tag/v2.1
 ```
 
 
