@@ -10,7 +10,7 @@ This document contains the instructions for reproducing the results of: **Co-Loc
 
 **Section VIII**  
 
-   4. Table II: MRTC Mean Base β and Incremental Costs Y  
+   4. Table II: MRTC Mean Base ${\Beta}$ and Incremental Costs Y  
    5. Figure 9.a: FJ-791 F=.95
    6. Figure 9.b: FJ-956 F=.18
    7. Figure 9.c: FJ-484 F=.55
@@ -27,7 +27,7 @@ Section 1 provides the instructions for obtaining, installing, and verifying the
 The virtual machine is provided as an Open Virtual Appliance (OVA) suitable for use with VirtualBox. The virtual machine image is approximately 40 gigabytes, named `fjcolo.ova`, and is available from:
 
 ```
-https://www.[PLACEHOLDER].com
+http://tessler.cs.unlv.edu/arx/oc/fjcolo.ova
 ```
 Upon downloading, the correctness of the image may be validated by verifying its checksum.
 The checksum can be verified on a Linux system with: 
