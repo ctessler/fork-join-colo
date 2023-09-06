@@ -10,7 +10,7 @@ This document contains the instructions for reproducing the results of: **Co-Loc
 
 **Section VIII**  
 
-   4. Table II: MRTC Mean Base ${\Beta}$ and Incremental Costs Y  
+   4. Table II: MRTC Mean Base β and Incremental Costs Y  
    5. Figure 9.a: FJ-791 F=.95
    6. Figure 9.b: FJ-956 F=.18
    7. Figure 9.c: FJ-484 F=.55
