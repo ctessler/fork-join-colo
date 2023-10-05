@@ -54,7 +54,7 @@ class ThreeParmHD(TaskWCET):
         del self._act_lengths
         del self._est_lengths        
         del self._LB
-        return makespan
+        return makespan, descs
 
     def lowerbound(self, sec, m):
         '''

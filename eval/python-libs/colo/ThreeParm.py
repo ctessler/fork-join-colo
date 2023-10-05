@@ -75,7 +75,8 @@ class ThreeParm(TaskWCET):
         for i in range(m):
             descs[i] += f'<= {act_lengths[i]}'
         logging.info(f'{pfx} 3-Parm Schedule:\n' + '\n'.join(descs))
-        return makespan
+        
+        return makespan, descs
 
     def assign_threads(self, LB, est_lengths, act_lengths, descs,
                        core, O, C, T):
