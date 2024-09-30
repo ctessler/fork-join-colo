@@ -27,7 +27,7 @@ def sanity_check(df):
         # If one is missing, the sanity check cannot be performed
         if not f'{method}-Sched' in df.columns:
             return
-    
+
     for name, row in df.iterrows():
         deadline = row['Deadline']
 
@@ -49,7 +49,7 @@ def sanity_check(df):
             msg = f'Task-{name} is not schedulable under the '
             msg += 'exact test without co-location, but *is* '
             msg += 'schedulable by the 2-Gram approximation'
-            logging.warning(msg)            
+            logging.warning(msg)
 
         # Exact With Colocation vs 2-Gram
         if not ewc_sched and tg_sched:
@@ -69,15 +69,15 @@ def sanity_check(df):
             msg += '3-Parm-HD, but *is* '
             msg += 'schedulable by the 3-Parm approximation'
             logging.warning(msg)
-            
+
 def module_start(context_dir, skip_exact=False):
     '''
     Entry point when used as a module
 
     context_dir - the directory containing the results after they have
-                  been processed by the WCET and scheduling algorithms 
+                  been processed by the WCET and scheduling algorithms
     '''
-    
+
     ctx_dir = os.path.normpath(context_dir)
     if not os.path.isdir(ctx_dir):
         raise NotADirectoryError(f'{ctx_dir} does not exist')
@@ -92,7 +92,7 @@ def module_start(context_dir, skip_exact=False):
     df = pandas.read_csv(task_csv)
     df.set_index('Name', inplace=True)
 
-    
+
     sanity_check(df)
     num_tasks = len(df.index)
     core_range = find_core_range(df)
@@ -105,11 +105,11 @@ def module_start(context_dir, skip_exact=False):
     ae_core_allocation(graph_dir, df, num_tasks, core_range)
     print(f'Creating DAG core allocation graphs')
     dag_core_allocation(graph_dir, df, num_tasks, core_range_dag)
-    print(f'Creating schedulability graphs')    
+    print(f'Creating schedulability graphs')
     schedulability(graph_dir, df, num_tasks, core_range)
-    print(f'Creating timing graphs')        
+    print(f'Creating timing graphs')
     timing(graph_dir, df, num_tasks, core_range)
-    print(f'Creating cache reuse graphs')            
+    print(f'Creating cache reuse graphs')
     cache_reuse(graph_dir, df, num_tasks, core_range)
     print(f'Creating timing line graphs')
     timing_growth(graph_dir, df, num_tasks, core_range)
@@ -146,8 +146,8 @@ def ae_core_allocation(graph_dir, df, num_tasks, core_range):
     plt.xlabel('Number of Required Cores', fontsize=gp.axis_fontsize())
     plt.legend(loc='best')
     path = os.path.normpath(graph_dir + '/ae-core-allocation.png')
-    plt.savefig(path, bbox_inches='tight')    
-    path = os.path.normpath(graph_dir + '/ae-core-allocation.eps')    
+    plt.savefig(path, bbox_inches='tight')
+    path = os.path.normpath(graph_dir + '/ae-core-allocation.eps')
     plt.savefig(path, bbox_inches='tight')
     plt.close()
 
@@ -168,7 +168,7 @@ def ae_core_allocation(graph_dir, df, num_tasks, core_range):
                  markersize=gp.get_markersize(pfx),
                  markerfacecolor=gp.get_markerfacecolor(pfx),
                  markevery=gp.get_markevery(pfx, core_range))
-    
+
     plt.legend(loc='best')
     xticks = core_range
     if len(xticks) > 10:
@@ -181,7 +181,7 @@ def ae_core_allocation(graph_dir, df, num_tasks, core_range):
                fontsize=gp.axis_fontsize())
     path = os.path.normpath(graph_dir + '/ae-core-allocation-agg.png')
     plt.savefig(path, bbox_inches='tight')
-    path = os.path.normpath(graph_dir + '/ae-core-allocation-agg.eps')        
+    path = os.path.normpath(graph_dir + '/ae-core-allocation-agg.eps')
     plt.savefig(path, bbox_inches='tight')
     plt.close()
 
@@ -199,13 +199,13 @@ def dag_core_allocation(graph_dir, df, num_tasks, core_range):
         cores.append(sf[pfx][core])
         labels.append(gp.get_label(pfx))
         colors.append(gp.get_color(pfx))
-        
+
     plt.hist(cores, label=labels, color=colors)
     plt.ylabel('Number of Tasks Schedulable', fontsize=gp.axis_fontsize())
     plt.xlabel('Number of Required Cores', fontsize=gp.axis_fontsize())
     plt.legend(loc='best')
     path = os.path.normpath(graph_dir + '/dag-core-allocation.png')
-    plt.savefig(path, bbox_inches='tight')    
+    plt.savefig(path, bbox_inches='tight')
     path = os.path.normpath(graph_dir + '/dag-core-allocation.eps')
     plt.savefig(path, bbox_inches='tight')
     plt.close()
@@ -229,7 +229,7 @@ def dag_core_allocation(graph_dir, df, num_tasks, core_range):
                  markersize=gp.get_markersize(pfx),
                  markerfacecolor=gp.get_markerfacecolor(pfx),
                  markevery=gp.get_markevery(pfx))
-    
+
     plt.legend(loc='best')
     xticks = tenth_range
     if len(xticks) > 10:
@@ -237,12 +237,12 @@ def dag_core_allocation(graph_dir, df, num_tasks, core_range):
     plt.ylabel('Percentage of Tasks Schedulable', fontsize=gp.axis_fontsize())
     plt.xlabel('Number of Required Cores', fontsize=gp.axis_fontsize())
     path = os.path.normpath(graph_dir + '/dag-core-allocation-agg.png')
-    plt.savefig(path, bbox_inches='tight')    
-    path = os.path.normpath(graph_dir + '/dag-core-allocation-agg.eps')        
+    plt.savefig(path, bbox_inches='tight')
+    path = os.path.normpath(graph_dir + '/dag-core-allocation-agg.eps')
     plt.savefig(path, bbox_inches='tight')
     plt.close()
 
-    
+
 def schedulability(graph_dir, df, num_tasks, core_range):
     algs = gp.algs_approx() + gp.algs_dag()
     if do_exact(df):
@@ -255,21 +255,26 @@ def schedulability(graph_dir, df, num_tasks, core_range):
 
     sums = []
     labels = []
+    colors = []
     for pfx in algs:
         s = sf[pfx].values.sum()
         sums.append(s)
-        labels.append(gp.get_label(pfx) + f' {s}')
-        
-    plt.bar(labels, sums, color=['red', 'blue', 'green'],
-            align='edge', width=0.1)
-    plt.ylabel(f'Tasks Schedulable on {max(core_range)} or Fewer Cores'
-               f'\nTotal Tasks: {num_tasks}',
+        # labels.append(gp.get_label(pfx) + f' ({s})')
+        labels.append(gp.get_label(pfx))
+        colors.append(gp.get_color(pfx))
+
+    plt.bar(labels, sums, color=colors,
+            align='center', width=0.3)
+    plt.title(f'Tasks Schedulable on {max(core_range)} or Fewer Cores\n'
+              f'\nTotal Tasks: {num_tasks}',
+              fontsize=gp.axis_fontsize())
+    plt.ylabel(f'Number of Tasks',
                fontsize=gp.axis_fontsize())
     plt.xticks(rotation=45)
     plt.tight_layout()
     path = os.path.normpath(graph_dir + '/schedulability.png')
-    plt.savefig(path, bbox_inches='tight')    
-    path = os.path.normpath(graph_dir + '/schedulability.eps')    
+    plt.savefig(path, bbox_inches='tight')
+    path = os.path.normpath(graph_dir + '/schedulability.eps')
     plt.savefig(path, bbox_inches='tight')
     plt.close()
 
@@ -293,15 +298,15 @@ def timing_exact(graph_dir, df, num_tasks, core_range):
     plt.xlabel('Method', fontsize=gp.axis_fontsize())
     path = os.path.normpath(graph_dir + '/timing-exact-nomax.png')
     plt.savefig(path, bbox_inches='tight')
-    path = os.path.normpath(graph_dir + '/timing-exact-nomax.eps')    
+    path = os.path.normpath(graph_dir + '/timing-exact-nomax.eps')
     plt.savefig(path, bbox_inches='tight')
     plt.ylim([0, ymax])
     path = os.path.normpath(graph_dir + '/timing-exact-limited.png')
     plt.savefig(path, bbox_inches='tight')
     path = os.path.normpath(graph_dir + '/timing-exact-limited.eps')
-    plt.savefig(path, bbox_inches='tight')    
+    plt.savefig(path, bbox_inches='tight')
     plt.close()
-    
+
 def timing_dag(graph_dir, df, num_tasks, core_range):
     dag = []
     dag_labels = []
@@ -314,19 +319,19 @@ def timing_dag(graph_dir, df, num_tasks, core_range):
     plt.ylabel('Completion Time in Seconds', fontsize=gp.axis_fontsize())
     path = os.path.normpath(graph_dir + '/timing-dag.png')
     plt.savefig(path, bbox_inches='tight')
-    path = os.path.normpath(graph_dir + '/timing-dag.eps')    
+    path = os.path.normpath(graph_dir + '/timing-dag.eps')
     plt.savefig(path, bbox_inches='tight')
     plt.close()
-    
+
 def timing(graph_dir, df, num_tasks, core_range):
     if not all([gp.key_sched(item) in df.columns for item in
             gp.algs_exact()]):
         logging.warning('skipping timing for exact methods')
     else:
         timing_exact(graph_dir, df, num_tasks, core_range)
-        
+
     timing_dag(graph_dir, df, num_tasks, core_range)
-    
+
     approx = []
     approx_labels = []
     for pfx in gp.algs_approx():
@@ -338,7 +343,7 @@ def timing(graph_dir, df, num_tasks, core_range):
                fontsize=gp.axis_fontsize())
     path = os.path.normpath(graph_dir + '/timing-approx.png')
     plt.savefig(path, bbox_inches='tight')
-    path = os.path.normpath(graph_dir + '/timing-approx.eps')    
+    path = os.path.normpath(graph_dir + '/timing-approx.eps')
     plt.savefig(path, bbox_inches='tight')
     plt.close()
 
@@ -388,7 +393,7 @@ def timing_growth(graph_dir, df, numb_tasks, core_range):
     plt.ylabel('Average Completion Time', fontsize=gp.axis_fontsize())
     path = os.path.normpath(graph_dir + '/ae-timing-growth.png')
     plt.savefig(path, bbox_inches='tight')
-    path = os.path.normpath(graph_dir + '/ae-timing-growth.eps')    
+    path = os.path.normpath(graph_dir + '/ae-timing-growth.eps')
     plt.savefig(path, bbox_inches='tight')
     plt.close()
 
@@ -430,9 +435,9 @@ def timing_with_confidence(graph_dir, df):
     logging.info(f'Writing {path}')
     path = os.path.normpath(graph_dir + '/timing-confidence.png')
     plt.savefig(path, bbox_inches='tight')
-    logging.info(f'Writing {path}')    
+    logging.info(f'Writing {path}')
     plt.close()
-    
+
 
 def cache_reuse(graph_dir, df, num_tasks, core_range):
     sf = df[gp.task_key_reuse()].value_counts(bins=10, sort=False)
@@ -440,7 +445,7 @@ def cache_reuse(graph_dir, df, num_tasks, core_range):
     labels = []
     for val in sf.index.values:
         labels.append(str(val))
-    
+
     plt.bar(labels, sf.values,
             color=gp.get_color(None, bar=True), edgecolor='black')
     plt.xticks(rotation=45)
@@ -467,13 +472,13 @@ def cache_reuse(graph_dir, df, num_tasks, core_range):
     labels=[]
     for pair in sf.index.values:
         labels.append(pair.right)
-        
+
     plt.plot(labels, pct)
     plt.xlabel('Cache Reuse Factor', fontsize=gp.axis_fontsize())
     plt.ylabel('Percentage of All Tasks', fontsize=gp.axis_fontsize())
-    path = os.path.normpath(graph_dir + '/cache-reuse-agg.png')    
+    path = os.path.normpath(graph_dir + '/cache-reuse-agg.png')
     plt.savefig(path, bbox_inches='tight')
-    path = os.path.normpath(graph_dir + '/cache-reuse-agg.eps')    
+    path = os.path.normpath(graph_dir + '/cache-reuse-agg.eps')
     plt.savefig(path, bbox_inches='tight')
     plt.close()
 
@@ -509,11 +514,11 @@ def ca_sched(graph_dir, df, num_tasks, core_range, subset, png):
     if not all([gp.key_sched(item) in df.columns for item in subset]):
         logging.warning(f'ca_sched skipping {png}')
         return
-    
+
     intmax=[]
     for pair in sf.index.values:
         intmax.append(pair.right)
-    
+
     schedf = {}
     accum = {}
     for pfx in subset:
@@ -526,7 +531,7 @@ def ca_sched(graph_dir, df, num_tasks, core_range, subset, png):
         for right in intmax:
             count = len(subf[subf[gp.task_key_reuse()] <= right].index)
             accum[pfx].append(100 * (count / num_tasks))
-        
+
     for pfx in subset:
         plt.plot(intmax, accum[pfx], label=gp.get_label(pfx),
                  linestyle=gp.get_line(pfx),
@@ -535,7 +540,7 @@ def ca_sched(graph_dir, df, num_tasks, core_range, subset, png):
                  markersize=gp.get_markersize(pfx),
                  markerfacecolor=gp.get_markerfacecolor(pfx),
                  markevery=gp.get_markevery(pfx))
-    
+
     plt.legend(loc='best')
     plt.xlabel('Cache Reuse Factor Upper Bound',
                fontsize=gp.axis_fontsize())
@@ -550,7 +555,7 @@ def ca_pct(graph_dir, df, num_tasks, core_range, subset, png):
     if not all([gp.key_sched(item) in df.columns for item in subset]):
         logging.warning(f'ca_pct skipping {png}')
         return
-    
+
     cakey = gp.task_key_reuse()
     sf, bins = pandas.cut(df[cakey], bins=10, retbins=True)
     totalsf = df[cakey].value_counts(bins=bins, sort=False)
@@ -561,7 +566,7 @@ def ca_pct(graph_dir, df, num_tasks, core_range, subset, png):
         if left < 0:
             left = 0.0
         labels.append(f'({left:<0.2f}, {right:<0.2f}]')
-    
+
     accum = {}
     for pfx in subset:
         col = f'{pfx}-Sched'
@@ -580,7 +585,7 @@ def ca_pct(graph_dir, df, num_tasks, core_range, subset, png):
                  markersize=gp.get_markersize(pfx),
                  markerfacecolor=gp.get_markerfacecolor(pfx),
                  markevery=gp.get_markevery(pfx))
-    
+
     # plt.legend(bbox_to_anchor=(0,1,1,0), loc='lower left',
     #     mode='expand', ncol=2)
     plt.legend(loc='best')
@@ -610,7 +615,7 @@ def ca_count(graph_dir, df, num_tasks, core_range, subset, png):
         if left < 0:
             left = 0.0
         labels.append(f'({left:<0.2f}, {right:<0.2f}]')
-    
+
     accum = {}
 
     for pfx in subset:
@@ -625,7 +630,7 @@ def ca_count(graph_dir, df, num_tasks, core_range, subset, png):
             logging.warning(f'{pfx} as *NO* schedulable tasks')
             logging.warning(f'SKIPPING ca_count for entire subset')
             return
-            
+
     for pfx in subset:
         plt.plot(labels, accum[pfx], label=gp.get_label(pfx),
                  linestyle=gp.get_line(pfx),
@@ -672,7 +677,7 @@ def core_comp(graph_dir, df, num_tasks, core_range):
     for a in allalgs:
         key = gp.key_sched(a)
         allsched = allsched.loc[allsched[key] == True]
-    
+
     for a in dag + exact:
         key = gp.key_sched(a)
         dagsched = dagsched.loc[dagsched[key] == True]
@@ -706,7 +711,7 @@ def core_comp(graph_dir, df, num_tasks, core_range):
 def core_comp_helper(frame, algs, core_range, path):
     fig = plt.figure()
     plt.subplot2grid((1, 4), (0, 0), colspan=3)
-    
+
     total_tasks = len(frame.index)
     means = []
     for alg in algs:
@@ -740,8 +745,8 @@ def core_comp_helper(frame, algs, core_range, path):
         text.append([f'{mean:.2f}'])
         colors.append(gp.get_markerfacecolor(alg))
         labels.append(gp.get_label(alg))
-                       
-    plt.subplot2grid((1, 4), (0, 3))    
+
+    plt.subplot2grid((1, 4), (0, 3))
     tbl= plt.table(cellText=text,
               rowLabels=labels,
               rowColours=colors,
@@ -755,7 +760,7 @@ def core_comp_helper(frame, algs, core_range, path):
             cell.set_height(.15)
             continue
         cell.set_height(.1)
-    
+
     tbl.auto_set_font_size(False)
     tbl.set_fontsize(gp.axis_fontsize() - 2)
     tbl.auto_set_column_width((0, -1))
@@ -770,7 +775,7 @@ def core_comp_helper(frame, algs, core_range, path):
 def core_comp_helper_cdf(frame, algs, core_range, path):
     fig = plt.figure()
     plt.subplot2grid((1, 4), (0, 0), colspan=3)
-    
+
     total_tasks = len(frame.index)
     means = []
     for alg in algs:
@@ -787,7 +792,7 @@ def core_comp_helper_cdf(frame, algs, core_range, path):
                 counts.append(0)
             if total_tasks == 0 and subtotal != 0:
                 logging.error(f'Zero total tasks, but subtotal:{subtotal} is non-zero')
-            
+
         plt.plot(core_range, counts, label=alg,
                  color=gp.get_color(alg),
                  linestyle=gp.get_line(alg),
@@ -813,8 +818,8 @@ def core_comp_helper_cdf(frame, algs, core_range, path):
         text.append([f'{mean:.2f}'])
         colors.append(gp.get_markerfacecolor(alg))
         labels.append(gp.get_label(alg))
-                       
-    plt.subplot2grid((1, 4), (0, 3))    
+
+    plt.subplot2grid((1, 4), (0, 3))
     tbl= plt.table(cellText=text,
               rowLabels=labels,
               rowColours=colors,
@@ -828,7 +833,7 @@ def core_comp_helper_cdf(frame, algs, core_range, path):
             cell.set_height(.15)
             continue
         cell.set_height(.1)
-    
+
     tbl.auto_set_font_size(False)
     tbl.set_fontsize(gp.axis_fontsize() - 2)
     tbl.auto_set_column_width((0, -1))
@@ -868,7 +873,7 @@ def core_comp_hist(frame, algs, core_range, path):
     plt.savefig(path)
     plt.close()
     logging.info(f'Wrote graph {path}')
-        
+
 def core_comp_hist_pair(frame, approx, dag, core_range, path):
     if not do_exact(frame):
         logging.warning(f'core_comp_hist skipping {path}')
@@ -903,7 +908,7 @@ def core_comp_hist_pair(frame, approx, dag, core_range, path):
             fortext = '\nfor Approximations'
         else:
             fortext = '\nfor DAG Methods'
-        
+
         plt.xlabel(f'Number of Cores {fortext}', fontsize=gp.axis_fontsize())
 
     handles = [a.get_legend_handles_labels() for a in ax]
@@ -914,33 +919,33 @@ def core_comp_hist_pair(frame, approx, dag, core_range, path):
         idx = labels.index(name)
         plots.pop(idx)
         labels.pop(idx)
-    
+
     fig.legend(plots, labels, loc='upper center',
                bbox_to_anchor=(.55, 1.2), ncol=3)
     plt.tight_layout()
     plt.savefig(path, bbox_inches='tight')
     plt.close()
     logging.info(f'Wrote graph {path}')
-        
+
 
 def get_sched_algs(df):
     '''
     Returns a list of the scheduling algorithms included in the
-    datframe 
+    datframe
     '''
     scheds = df.filter(regex=".*-Cores")
     cores = list(scheds.columns)
     algs = [i[:-6] for i in cores]
 
     return algs
-    
+
 
 def do_exact(df):
     exact = [gp.key_cores(item) for item in gp.algs_exact()]
     return all(item in df.columns for item in exact)
 
 
-    
+
 def find_core_range(df):
     '''
     Determines the core range of the dataset based on the approximate
