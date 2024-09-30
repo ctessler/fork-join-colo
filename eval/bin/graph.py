@@ -268,7 +268,7 @@ def schedulability(graph_dir, df, num_tasks, core_range):
     plt.title(f'Tasks Schedulable on {max(core_range)} or Fewer Cores\n'
               f'\nTotal Tasks: {num_tasks}',
               fontsize=gp.axis_fontsize())
-    plt.ylabel(f'Number of Tasks',
+    plt.ylabel(f'Count of Schedulable Tasks',
                fontsize=gp.axis_fontsize())
     plt.xticks(rotation=45)
     plt.tight_layout()
