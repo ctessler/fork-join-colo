@@ -21,6 +21,7 @@ sel=( cache-reuse.eps
       sched-by-count-all.eps
       sched-by-count-cdf-approx.eps
       sched-by-count-cdf-all.eps
+      schedulability.eps
       schedulability-cache-reuse-pct-all.eps )
 
 ODIR=${1}
