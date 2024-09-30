@@ -3,7 +3,7 @@ all = ['idiot',
 
 import itertools
 import math
-from .Write_ctask import write_c_file
+
 class idiot(itertools.combinations):
     '''
     An iterator for the Distribution Of Identical Objects To Distinct
@@ -125,13 +125,11 @@ def core_alloc(ident, solver_class, task_path, cores_min, cores_max,
     log_pfx = f'{ident}(Task:{task.name}) ⇨'
     min_cores = None
     wcet = None
-    descs = None 
     logging.info(f'{log_pfx} Running for [{cores_min}, {cores_max}] cores')
     for m in range(cores_min, cores_max + 1):
         solver = solver_class(task)
         try:
-            # Obtain WCET and Sections Table To Parse Schedules From
-            wcet, descs = solver.wcet(m)
+            wcet = solver.wcet(m)
         except KeyboardInterrupt as k:
             # Interrupted
             wcet = None
@@ -139,9 +137,6 @@ def core_alloc(ident, solver_class, task_path, cores_min, cores_max,
         if wcet <= task.deadline:
             logging.info(f'{log_pfx} {m}-core WCET {wcet} ≤ '
                          f'{task.deadline} deadline, done exploring.')
-            logging.info(log_pfx)
-            # Write C File if it can reach a deadline
-            write_c_file(task, m, descs, ident, "test_folder", cores_max)   
             min_cores = m
             break
         logging.info(f'{log_pfx} {m}-core WCET {wcet} > '
@@ -150,15 +145,12 @@ def core_alloc(ident, solver_class, task_path, cores_min, cores_max,
     terminated=False
     if not wcet:
         logging.warning(f'⚠ {log_pfx} interrupted')
-        # Unsure of what schedule should be written if a deadline cannot be reached
-        # write_c_file(task, m, descs, m, ident, "test_folder", cores_max) 
         min_cores = None
         terminated = True
     
     if not min_cores:
         logging.warning(f'⚠ {log_pfx} could not meet its deadline '
-                        f'with {cores_max} cores')  
-          
+                        f'with {cores_max} cores')
         min_cores = cores_max
 
     logging.info(f'{log_pfx} took {timer.elapsed:0.3} seconds')

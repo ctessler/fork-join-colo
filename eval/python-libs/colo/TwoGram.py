@@ -76,8 +76,7 @@ class TwoGram(TaskWCET):
         logging.info(f'{pfx} 2-Gram Schedule:\n' + '\n'.join(descs))
         self.heavy_tbl = {}
         self.thread_tbl = {}
-
-        return makespan, descs
+        return makespan
 
     def find_min_idx(self, scheds):
         min_idx = 0
