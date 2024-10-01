@@ -144,7 +144,7 @@ def ae_core_allocation(graph_dir, df, num_tasks, core_range):
     plt.xticks(core_range)
     plt.ylabel('Number of Tasks Schedulable', fontsize=gp.axis_fontsize())
     plt.xlabel('Number of Required Cores', fontsize=gp.axis_fontsize())
-    plt.legend(loc='best')
+    plt.legend(ncols=1, loc='best', bbox_to_anchor=(1.0, 1.0))
     path = os.path.normpath(graph_dir + '/ae-core-allocation.png')
     plt.savefig(path, bbox_inches='tight')
     path = os.path.normpath(graph_dir + '/ae-core-allocation.eps')
@@ -169,7 +169,7 @@ def ae_core_allocation(graph_dir, df, num_tasks, core_range):
                  markerfacecolor=gp.get_markerfacecolor(pfx),
                  markevery=gp.get_markevery(pfx, core_range))
 
-    plt.legend(loc='best')
+    plt.legend(ncols=1, loc='best', bbox_to_anchor=(1.0, 1.0))
     xticks = core_range
     if len(xticks) > 10:
         xticks = range(0, core_range[-1] + 1, math.floor(core_range[-1] / 10))
@@ -203,7 +203,7 @@ def dag_core_allocation(graph_dir, df, num_tasks, core_range):
     plt.hist(cores, label=labels, color=colors)
     plt.ylabel('Number of Tasks Schedulable', fontsize=gp.axis_fontsize())
     plt.xlabel('Number of Required Cores', fontsize=gp.axis_fontsize())
-    plt.legend(loc='best')
+    plt.legend(ncols=1, loc='best', bbox_to_anchor=(1.0, 1.0))
     path = os.path.normpath(graph_dir + '/dag-core-allocation.png')
     plt.savefig(path, bbox_inches='tight')
     path = os.path.normpath(graph_dir + '/dag-core-allocation.eps')
@@ -230,7 +230,7 @@ def dag_core_allocation(graph_dir, df, num_tasks, core_range):
                  markerfacecolor=gp.get_markerfacecolor(pfx),
                  markevery=gp.get_markevery(pfx))
 
-    plt.legend(loc='best')
+    plt.legend(ncols=1, loc='best', bbox_to_anchor=(1.0, 1.0))
     xticks = tenth_range
     if len(xticks) > 10:
         xticks = range(0, core_range[-1] + 1, math.floor(core_range[-1] / 10))
@@ -371,7 +371,7 @@ def timing_growth(graph_dir, df, numb_tasks, core_range):
                  markersize=gp.get_markersize(pfx),
                  markerfacecolor=gp.get_markerfacecolor(pfx),
                  markevery=gp.get_markevery(pfx, trange))
-    plt.legend(loc='best')
+    plt.legend(ncols=1, loc='best', bbox_to_anchor=(1.0, 1.0))
     plt.xlabel('Threads per Task', fontsize=gp.axis_fontsize())
     plt.ylabel('Average Completion Time', fontsize=gp.axis_fontsize())
     path = os.path.normpath(graph_dir + '/all-timing-growth.png')
@@ -388,7 +388,7 @@ def timing_growth(graph_dir, df, numb_tasks, core_range):
                  markersize=gp.get_markersize(pfx),
                  markerfacecolor=gp.get_markerfacecolor(pfx),
                  markevery=gp.get_markevery(pfx, trange))
-    plt.legend(loc='best')
+    plt.legend(ncols=1, loc='best', bbox_to_anchor=(1.0, 1.0))
     plt.xlabel('Threads per Task', fontsize=gp.axis_fontsize())
     plt.ylabel('Average Completion Time', fontsize=gp.axis_fontsize())
     path = os.path.normpath(graph_dir + '/ae-timing-growth.png')
@@ -427,7 +427,7 @@ def timing_with_confidence(graph_dir, df):
                          color=gp.get_color(alg),
                          alpha=.1,
                          interpolate=True)
-    plt.legend(loc='best')
+    plt.legend(ncols=1, loc='best', bbox_to_anchor=(1.0, 1.0))
     plt.xlabel('Threads per Task', fontsize=gp.axis_fontsize())
     plt.ylabel('Average Completion Time', fontsize=gp.axis_fontsize())
     path = os.path.normpath(graph_dir + '/timing-confidence.png')
@@ -541,7 +541,7 @@ def ca_sched(graph_dir, df, num_tasks, core_range, subset, png):
                  markerfacecolor=gp.get_markerfacecolor(pfx),
                  markevery=gp.get_markevery(pfx))
 
-    plt.legend(loc='best')
+    plt.legend(ncols=1, loc='best', bbox_to_anchor=(1.0, 1.0))
     plt.xlabel('Cache Reuse Factor Upper Bound',
                fontsize=gp.axis_fontsize())
     plt.ylabel('Percentage of Tasks Schedulable\n'
@@ -586,16 +586,14 @@ def ca_pct(graph_dir, df, num_tasks, core_range, subset, png):
                  markerfacecolor=gp.get_markerfacecolor(pfx),
                  markevery=gp.get_markevery(pfx))
 
-    # plt.legend(bbox_to_anchor=(0,1,1,0), loc='lower left',
-    #     mode='expand', ncol=2)
-    plt.legend(loc='best')
+    plt.legend(ncols=1, loc='best', bbox_to_anchor=(1.0, 1.0))
     plt.xlabel('Average Cache Reuse Factor Interval',
                fontsize=gp.axis_fontsize())
     plt.ylabel('Percentage of Tasks Schedulable\n'
                f'on {max(core_range)} or Fewer Cores',
                fontsize=gp.axis_fontsize())
     plt.xticks(rotation=45)
-    plt.tight_layout()
+
     path = os.path.normpath(graph_dir + '/' + png)
     plt.savefig(path, bbox_inches='tight')
     plt.close()
@@ -640,7 +638,7 @@ def ca_count(graph_dir, df, num_tasks, core_range, subset, png):
                  markerfacecolor=gp.get_markerfacecolor(pfx),
                  markevery=gp.get_markevery(pfx))
 
-    plt.legend(loc='best')
+    plt.legend(ncols=1, loc='best', bbox_to_anchor=(1.0, 1.0))
     plt.xlabel('Average Cache Reuse Factor Interval',
                fontsize=gp.axis_fontsize())
     plt.ylabel(f'Number of Tasks Schedulable\n'
@@ -868,8 +866,7 @@ def core_comp_hist(frame, algs, core_range, path):
     plt.xticks([c + .5 for c in core_range],
                fontsize=gp.axis_fontsize())
     plt.xlabel(f'Number of Cores', fontsize=gp.axis_fontsize())
-    plt.legend(loc='best')
-    # plt.tight_layout()
+    plt.legend(ncols=1, loc='best', bbox_to_anchor=(1.0, 1.0))
     plt.savefig(path)
     plt.close()
     logging.info(f'Wrote graph {path}')

@@ -34,18 +34,18 @@ LABELS = {
     '3-Parm-HD' : '3-Parm-HD',
     '2-Gram' : 'Gram'
 }
-    
+
 
 PFX = []
 MARKER = {}
 TASK_RESULTS = []
-            
+
 def module_start(context_dir, skip_exact=False):
     '''
     Entry point when used as a module
 
     context_dir - the directory containing the results after they have
-                  been processed by the WCET and scheduling algorithms 
+                  been processed by the WCET and scheduling algorithms
     '''
     for pfx in APPROX:
         TASK_RESULTS.append(pfx + '-Cores')
@@ -78,7 +78,9 @@ def module_start(context_dir, skip_exact=False):
 
     num_tasks = len(df.index)
     print_avg_core_alloc(stats_dir, df, num_tasks)
-    
+
+    avg_reuse = df['CacheReuseFactor'].mean()
+    print(f'Avg. Cache Reuse Factor = {avg_reuse:.2f}')
 
     return 0
 
@@ -95,7 +97,7 @@ def print_avg_core_alloc(graph_dir, df, num_tasks):
             print(f'{alg[:-6]:11} | {count:>10} ({pct:>5.2f}) | {sched[alg].mean():.2f}')
     print(f'----------------------------------------')
     print(f'|Tasks|     = {len(df.index):14}')
-    
+
 def main():
     '''Entry point when used a script'''
     cargs = comargs.CommonArgs()
